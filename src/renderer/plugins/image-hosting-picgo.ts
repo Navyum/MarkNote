@@ -37,20 +37,18 @@ export default {
         title: 'T_picgo.setting.format-title',
         description: 'T_picgo.setting.format-desc',
         type: 'string',
-        defaultValue: '![Img](url)',
+        defaultValue: '![Img](url)\n',
         enum: [
           '![Img](url)\n',
-          '![描述](url)\n',
-          '![](url)',
-          '<img src="url" />\n'
+          '<img src="url" />\n',
+          '<p align="center"><img src="url" width="80%"></p>\n',
         ],
         group: 'image',
         options: {
           enum_titles: [
             'T_picgo.setting.format-default',
-            'T_picgo.setting.format-with-alt',
-            'T_picgo.setting.format-no-alt',
-            'T_picgo.setting.format-html'
+            'T_picgo.setting.format-html',
+            'T_picgo.setting.format-html-align',
           ]
         }
       }
