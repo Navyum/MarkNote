@@ -519,7 +519,13 @@ const data: BaseLanguage = {
       'api-title': 'PicGo API',
       'api-desc': 'URL-адрес PicGo по умолчанию: http://127.0.0.1:36677/upload',
       'api-msg': 'Должен начинаться с http://',
-      'paste-title': 'Вставить изображение с помощью PicGo'
+      'paste-title': 'Вставить изображение с помощью PicGo',
+      'format-title': 'Формат изображения',
+      'format-desc': 'Формат вставляемых изображений',
+      'format-default': 'По умолчанию',
+      'format-with-alt': 'С описанием', 
+      'format-no-alt': 'Без описания',
+      'format-html': 'HTML формат'
     },
     'uploading': 'Загрузка',
     'upload-failed': 'Загрузка не удалась',
