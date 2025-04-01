@@ -518,7 +518,13 @@ const data = {
       'api-title': 'PicGo Api',
       'api-desc': 'PicGo default URL: http://127.0.0.1:36677/upload',
       'api-msg': 'Must starts with http://',
-      'paste-title': 'Paste image with PicGo'
+      'paste-title': 'Paste image with PicGo',
+      'format-title': 'Image Format',
+      'format-desc': 'Format for inserted images',
+      'format-default': 'Default format',
+      'format-with-alt': 'With alt text', 
+      'format-no-alt': 'No alt text',
+      'format-html': 'HTML format'
     },
     'uploading': 'Uploading',
     'upload-failed': 'Upload Failed',
