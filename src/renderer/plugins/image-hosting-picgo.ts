@@ -151,7 +151,7 @@ export default {
       // 获取配置的图片格式
       const format = ctx.setting.getSettings()[settingKeyFormat] || '![Img](url)'
       // 替换占位符并插入编辑器
-      const markdown = format.replace('url', ${url})// 自动换行
+      const markdown = format.replace('url', url)// 自动换行
 
       ctx.editor.insert(markdown)
     }
