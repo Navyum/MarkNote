@@ -2,7 +2,7 @@
 import type { BaseLanguage } from './en'
 
 const data: BaseLanguage = {
-  'app-name': 'Mark Note',
+  'app-name': 'Yank Note',
   'about': '关于',
   'feedback': '反馈',
   'slogan': '一款强大可扩展的 Markdown 编辑器，为生产力而生',
@@ -60,7 +60,7 @@ const data: BaseLanguage = {
       'intro': '介绍',
       'current-plan': '当前版本',
       'included': '已包含',
-      'desc': 'Mark Note 是一款开源笔记应用，从 2024 年开始，一直在不断开发和更新。因为软件的开发和维护需要精力和资金，现推出付费高级版。如果你想支持我的开发工作，或需要使用高级版功能，可以选择购买高级版。',
+      'desc': 'Yank Note 是一款开源笔记应用，从 2018 年开始，一直在不断开发和更新。因为软件的开发和维护需要精力和资金，现推出付费高级版。如果你想支持我的开发工作，或需要使用高级版功能，可以选择购买高级版。',
       'free-desc': '满足大部分用户需求',
       'premium-desc': '更多高级功能',
       'free-list': '基础编辑功能\n图形嵌入\n运行代码片段\nHTML 小工具\n文档加密\n内置终端\n文档历史\n插件扩展',
@@ -124,7 +124,7 @@ const data: BaseLanguage = {
     },
     'updater': {
       'found-dialog': {
-        'title': 'Mark Note - 发现新版本',
+        'title': 'Yank Note - 发现新版本',
         'desc': '当前版本: %s\n新版本: %s',
         'buttons': {
           'download': '下载',
@@ -135,15 +135,15 @@ const data: BaseLanguage = {
         }
       },
       'progress-bar': {
-        'title': 'Mark Note - 下载',
+        'title': 'Yank Note - 下载',
         'detail': '下载中 %s',
         'failed': '下载失败: %s'
       },
       'failed-dialog': {
-        'title': 'Mark Note - 出现了一些错误',
+        'title': 'Yank Note - 出现了一些错误',
       },
       'install-dialog': {
-        'title': 'Mark Note - 下载完成',
+        'title': 'Yank Note - 下载完成',
         'desc': '新版本下载完成，是否要立即安装？',
         'buttons': {
           'install': '安装',
@@ -151,7 +151,7 @@ const data: BaseLanguage = {
         }
       },
       'no-newer-dialog': {
-        'title': 'Mark Note - 无新版本',
+        'title': 'Yank Note - 无新版本',
         'desc': '当前已是最新版本'
       }
     },
@@ -519,7 +519,14 @@ const data: BaseLanguage = {
       'api-title': 'PicGo 接口',
       'api-desc': 'PicGo 默认接口地址：http://127.0.0.1:36677/upload',
       'api-msg': '必须以 http:// 开头',
-      'paste-title': '粘贴图片使用 PicGo 图床'
+      'paste-title': '粘贴图片使用 PicGo 图床',
+      // 在 T_picgo.setting 部分添加
+      'format-title': '图片格式',
+      'format-desc': '选择插入图片时的格式',
+      'format-default': '默认格式',
+      'format-with-alt': '包含描述',
+      'format-no-alt': '无描述',
+      'format-html': 'HTML格式',
     },
     'uploading': '上传中……',
     'upload-failed': '上传失败',
