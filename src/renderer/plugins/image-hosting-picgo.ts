@@ -9,6 +9,7 @@ export default {
     const uploadActionName = 'plugin.image-hosting-picgo.upload'
     const settingKeyUrl = 'plugin.image-hosting-picgo.server-url'
     const settingKeyPaste = 'plugin.image-hosting-picgo.enable-paste-image'
+    const settingKeyFormat = 'plugin.image-hosting-picgo.image-format'
 
     ctx.setting.changeSchema((schema) => {
       schema.properties[settingKeyUrl] = {
@@ -30,6 +31,30 @@ export default {
         defaultValue: false,
         group: 'image',
       }
+
+      // 在 setting.changeSchema 中添加配置项
+      schema.properties[settingKeyFormat] = {
+        title: 'T_picgo.setting.format-title',
+        description: 'T_picgo.setting.format-desc',
+        type: 'string',
+        defaultValue: '![Img](url)',
+        enum: [
+          '![Img](url)\n',
+          '![描述](url)\n',
+          '![](url)',
+          '<img src="url" />\n'
+        ],
+        group: 'image',
+        options: {
+          enum_titles: [
+            'T_picgo.setting.format-default',
+            'T_picgo.setting.format-with-alt',
+            'T_picgo.setting.format-no-alt',
+            'T_picgo.setting.format-html'
+          ]
+        }
+      }
+
     })
 
     ctx.action.registerAction({
@@ -123,7 +148,13 @@ export default {
         throw new Error('No file opened.')
       }
       const url = await ctx.action.getActionHandler(uploadActionName)(file)
-      ctx.editor.insert(`![Img](${url})\n`)
+      // 获取配置的图片格式
+      const format = ctx.setting.getSettings()[settingKeyFormat] || '![Img](url)'
+      // 替换占位符并插入编辑器
+      const markdown = format
+        .replace('url', ${url})// 自动换行
+
+      ctx.editor.insert(markdown)
     }
 
     function addImage () {
