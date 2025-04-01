@@ -24,20 +24,13 @@ export default {
         group: 'image',
       }
 
-      schema.properties[settingKeyPaste] = {
-        title: 'T_picgo.setting.paste-title',
-        type: 'boolean',
-        format: 'checkbox',
-        defaultValue: false,
-        group: 'image',
-      }
-
       // 在 setting.changeSchema 中添加配置项
       schema.properties[settingKeyFormat] = {
         title: 'T_picgo.setting.format-title',
         description: 'T_picgo.setting.format-desc',
         type: 'string',
         defaultValue: '![Img](url)\n',
+        required: true,
         enum: [
           '![Img](url)\n',
           '<img src="url" />\n',
@@ -51,6 +44,14 @@ export default {
             'T_picgo.setting.format-html-align',
           ]
         }
+      }
+
+      schema.properties[settingKeyPaste] = {
+        title: 'T_picgo.setting.paste-title',
+        type: 'boolean',
+        format: 'checkbox',
+        defaultValue: false,
+        group: 'image',
       }
 
     })
