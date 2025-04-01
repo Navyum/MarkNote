@@ -373,6 +373,7 @@ export interface BuildInSettings {
   'assets.path-type': 'relative' | 'absolute' | 'auto',
   'plugin.image-hosting-picgo.server-url': string,
   'plugin.image-hosting-picgo.enable-paste-image': boolean,
+  'plugin.image-hosting-picgo.image-format': string,
   'license': string,
   'mark': FileItem[],
   'updater.source': 'auto' | 'github' | 'yank-note',
