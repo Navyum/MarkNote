@@ -10,6 +10,7 @@ English | [中文说明](./README_ZH-CN.md) | [Русский](./README_RU.md)
 
 ![Screenshot](./help/1.png)
 
+
 ## Highlights
 
 - **Easy to use:** Use *Monaco* kernel, optimize for Markdown editing, and have the same editing experience as VSCode.
