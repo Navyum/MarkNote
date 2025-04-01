@@ -523,9 +523,8 @@ const data: BaseLanguage = {
       'format-title': 'Формат изображения',
       'format-desc': 'Формат вставляемых изображений',
       'format-default': 'По умолчанию',
-      'format-with-alt': 'С описанием', 
-      'format-no-alt': 'Без описания',
-      'format-html': 'HTML формат'
+      'format-html': 'HTML формат',
+      'format-html-align': 'HTML формат',
     },
     'uploading': 'Загрузка',
     'upload-failed': 'Загрузка не удалась',
