@@ -519,7 +519,13 @@ const data: BaseLanguage = {
       'api-title': 'PicGo 介面',
       'api-desc': 'PicGo 預設介面地址：http://127.0.0.1:36677/upload',
       'api-msg': '必須以 http:// 開頭',
-      'paste-title': '貼上圖片使用 PicGo 圖床'
+      'paste-title': '貼上圖片使用 PicGo 圖床',
+      'format-title': '圖片格式',
+      'format-desc': '選擇插入圖片時的格式',
+      'format-default': '默認格式',
+      'format-with-alt': '包含描述',
+      'format-no-alt': '無描述',
+      'format-html': 'HTML格式'
     },
     'uploading': '上傳中……',
     'upload-failed': '上傳失敗',
