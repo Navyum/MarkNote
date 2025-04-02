@@ -92,7 +92,7 @@ const data: BaseLanguage = {
       'activating': 'Активация',
       'tips': 'Если у вас возникнут проблемы, пожалуйста, свяжитесь со мной',
       'tips-wechat': 'Wechat',
-      'activation-tips': 'Перед активацией убедитесь, что у вас есть доступ к <a href="https://yank-note.com" target="_blank">https://yank-note.com</a>',
+      'activation-tips': 'Перед активацией убедитесь, что у вас есть доступ к <a href="https://mark-note.com" target="_blank">https://mark-note.com</a>',
       'offline-activation': 'Оффлайн активация',
       'online-activation': 'Онлайн активация',
       'get-activation-token': 'Получить токен активации',

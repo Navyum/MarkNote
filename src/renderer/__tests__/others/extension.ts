@@ -44,7 +44,7 @@ test('readInfoFromJson', () => {
     readmeUrl: '',
     changelogUrl: '',
     compatible: {
-      reason: 'Not yank note extension.',
+      reason: 'Not mark note extension.',
       value: false,
     },
     requirements: {},
@@ -131,7 +131,7 @@ test('readInfoFromJson', () => {
     homepage: '',
     license: '',
     compatible: {
-      reason: 'Not yank note extension.',
+      reason: 'Not mark note extension.',
       value: false,
     },
     readmeUrl: '',
@@ -174,7 +174,7 @@ test('readInfoFromJson', () => {
     homepage: '',
     license: '',
     compatible: {
-      reason: 'Not yank note extension.',
+      reason: 'Not mark note extension.',
       value: false,
     },
     readmeUrl: 'readmeUrl',

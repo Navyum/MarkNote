@@ -2,7 +2,7 @@
 import type { BaseLanguage } from './en'
 
 const data: BaseLanguage = {
-  'app-name': 'Yank Note',
+  'app-name': 'Mark Note',
   'about': '关于',
   'feedback': '反馈',
   'slogan': '一款强大可扩展的 Markdown 编辑器，为生产力而生',
@@ -60,7 +60,7 @@ const data: BaseLanguage = {
       'intro': '介绍',
       'current-plan': '当前版本',
       'included': '已包含',
-      'desc': 'Yank Note 是一款开源笔记应用，从 2018 年开始，一直在不断开发和更新。因为软件的开发和维护需要精力和资金，现推出付费高级版。如果你想支持我的开发工作，或需要使用高级版功能，可以选择购买高级版。',
+      'desc': 'Mark Note 是一款开源笔记应用，从 2018 年开始，一直在不断开发和更新。因为软件的开发和维护需要精力和资金，现推出付费高级版。如果你想支持我的开发工作，或需要使用高级版功能，可以选择购买高级版。',
       'free-desc': '满足大部分用户需求',
       'premium-desc': '更多高级功能',
       'free-list': '基础编辑功能\n图形嵌入\n运行代码片段\nHTML 小工具\n文档加密\n内置终端\n文档历史\n插件扩展',
@@ -92,7 +92,7 @@ const data: BaseLanguage = {
       'activating': '激活中',
       'tips': '如果您在激活过程中遇到问题，请联系我',
       'tips-wechat': '微信',
-      'activation-tips': '激活前请确保您的网络可以正常访问到 <a href="https://yank-note.com" target="_blank">https://yank-note.com</a>',
+      'activation-tips': '激活前请确保您的网络可以正常访问到 <a href="https://mark-note.com" target="_blank">https://mark-note.com</a>',
       'offline-activation': '离线激活',
       'online-activation': '在线激活',
       'get-activation-token': '获取离线激活码',
@@ -124,7 +124,7 @@ const data: BaseLanguage = {
     },
     'updater': {
       'found-dialog': {
-        'title': 'Yank Note - 发现新版本',
+        'title': 'Mark Note - 发现新版本',
         'desc': '当前版本: %s\n新版本: %s',
         'buttons': {
           'download': '下载',
@@ -135,15 +135,15 @@ const data: BaseLanguage = {
         }
       },
       'progress-bar': {
-        'title': 'Yank Note - 下载',
+        'title': 'Mark Note - 下载',
         'detail': '下载中 %s',
         'failed': '下载失败: %s'
       },
       'failed-dialog': {
-        'title': 'Yank Note - 出现了一些错误',
+        'title': 'Mark Note - 出现了一些错误',
       },
       'install-dialog': {
-        'title': 'Yank Note - 下载完成',
+        'title': 'Mark Note - 下载完成',
         'desc': '新版本下载完成，是否要立即安装？',
         'buttons': {
           'install': '安装',
@@ -151,7 +151,7 @@ const data: BaseLanguage = {
         }
       },
       'no-newer-dialog': {
-        'title': 'Yank Note - 无新版本',
+        'title': 'Mark Note - 无新版本',
         'desc': '当前已是最新版本'
       }
     },

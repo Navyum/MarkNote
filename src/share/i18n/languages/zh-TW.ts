@@ -92,7 +92,7 @@ const data: BaseLanguage = {
       'activating': '激活中',
       'tips': '如果您在激活過程中遇到問題，請聯繫我',
       'tips-wechat': '微信',
-      'activation-tips': '激活前請確認您的網路能正常連線到 <a href="https://yank-note.com" target="_blank">https://yank-note.com</a>',
+      'activation-tips': '激活前請確認您的網路能正常連線到 <a href="https://mark-note.com" target="_blank">https://mark-note.com</a>',
       'offline-activation': '離線激活',
       'online-activation': '線上激活',
       'get-activation-token': '取得離線激活代碼',

@@ -91,7 +91,7 @@ const data = {
       'activating': 'Activating',
       'tips': 'If you have trouble, please contact me',
       'tips-wechat': 'Wechat',
-      'activation-tips': 'Make sure your network can access <a href="https://yank-note.com" target="_blank">https://yank-note.com</a> before activating',
+      'activation-tips': 'Make sure your network can access <a href="https://mark-note.com" target="_blank">https://mark-note.com</a> before activating',
       'offline-activation': 'Offline Activation',
       'online-activation': 'Online Activation',
       'get-activation-token': 'Get Activation Token',

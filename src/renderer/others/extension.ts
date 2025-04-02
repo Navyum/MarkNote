@@ -49,7 +49,7 @@ export function getLoadStatus (id: string): ExtensionLoadStatus {
 
 export function getCompatible (engines?: { 'yank-note': string }): ExtensionCompatible {
   if (!engines || !engines['yank-note']) {
-    return { value: false, reason: 'Not yank note extension.' }
+    return { value: false, reason: 'Not mark note extension.' }
   }
 
   const engineVersion = __APP_VERSION__
