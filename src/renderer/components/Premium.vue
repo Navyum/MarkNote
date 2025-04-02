@@ -137,7 +137,7 @@
       </template>
       <div v-if="!info" class="tips">
         {{$t('premium.activation.tips')}}:&nbsp;
-        <a href="mailto:yank-note@outlook.com">yank-note@outlook.com</a>
+        <a href="mailto:mark-note@outlook.com">mark-note@outlook.com</a>
         &nbsp; | &nbsp;
         <a href="javascript:void(0)">{{$t('premium.activation.tips-wechat')}}</a>
         <img class="qrcode" src="~@fe/assets/qrcode-wechat.jpg" >
