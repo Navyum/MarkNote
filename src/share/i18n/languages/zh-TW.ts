@@ -521,7 +521,7 @@ const data: BaseLanguage = {
       'api-msg': '必須以 http:// 開頭',
       'paste-title': '貼上圖片使用 PicGo 圖床',
       'format-title': '圖片格式',
-      'format-desc': '選擇插入圖片時的格式, Default: ![Img](url), HTML: <img src="url" />, HTML with Alignment: <p align="center"><img src="url" width="80%"></p>',
+      'format-desc': '選擇插入圖片時的格式',
       'format-default': '默認格式',
       'format-html': 'HTML格式',
       'format-html-align': 'HTML格式并设置对齐',

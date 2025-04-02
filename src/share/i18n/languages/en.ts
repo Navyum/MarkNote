@@ -520,7 +520,7 @@ const data = {
       'api-msg': 'Must starts with http://',
       'paste-title': 'Paste image with PicGo',
       'format-title': 'Image Format',
-      'format-desc': 'Select the format for inserted images\n Default: ![Img](url), HTML: <img src="url" />, HTML with Alignment: <p align="center"><img src="url" width="80%"></p>',
+      'format-desc': 'Select the format for inserted images',
       'format-default': 'Default format',
       'format-html-align': 'HTML format align',
       'format-html': 'HTML format',
