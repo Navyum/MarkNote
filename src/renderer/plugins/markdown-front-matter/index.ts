@@ -43,9 +43,43 @@ export default {
 
       items.push(
         { label: '/ --- Front Matter', insertText: '---\nheadingNumber: true\nwrapCode: true\nenableMacro: true\nmdOptions: { linkify: true, breaks: true }\ndefine:\n    APP_NAME: Mark Note\n---\n', block: true },
+        { 
+          label: '/ --- VuePress Front Matter', 
+          insertText: '---\n' + (() => {
+            const currentFile = ctx.store.state.currentFile
+            if (!currentFile) {
+              return 'title: Untitled\n'
+            }
+            const fullFileName = ctx.utils.path.basename(currentFile.path)
+            const fileExtension = ctx.utils.path.extname(fullFileName)
+            const title = fullFileName.replace(fileExtension, '')
+            const author = ctx.setting.getSetting('plugin.plugin-front-matter.author' as any) || 'navyum'
+            const date = ctx.lib.dayjs().format('YYYY-MM-DD HH:mm:ss')
+
+            return `title: ${title}
+author: ${author}
+date: ${date}
+
+article: false
+index: false
+sidebar: false
+headerDepth: 2
+sticky: true
+star: true
+
+category:
+  - \${1:使用指南}
+tag:
+  - \${2:页面配置}
+  - \${3:使用指南}
+---`
+          })(), 
+          block: true 
+        }
       )
     })
+    
 
     ctx.indexer.importScriptsToWorker(new URL(workerIndexerUrl, import.meta.url))
   }
-} as Plugin
+} as Plugin 
