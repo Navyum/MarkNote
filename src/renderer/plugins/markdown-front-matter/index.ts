@@ -62,16 +62,16 @@ date: ${date}
 
 article: false
 index: false
-sidebar: false
+
 headerDepth: 2
-sticky: true
-star: true
+sticky: false
+star: false
 
 category:
-  - \${1:使用指南}
+  - \${1:笔记}
 tag:
-  - \${2:页面配置}
-  - \${3:使用指南}
+
+  - \${2:笔记}
 ---`
           })(), 
           block: true 
