@@ -1,0 +1,740 @@
+diff --git a/.typedoc.json b/.typedoc.json
+index d0633741..5858486a 100644
+--- a/.typedoc.json
++++ b/.typedoc.json
+@@ -1,6 +1,6 @@
+ {
+   "out": "docs",
+-  "name": "Yank Note Api",
++  "name": "Mark Note Api",
+   "includeVersion": true,
+   "entryPointStrategy": "expand",
+   "readme": "none",
+diff --git a/README_RU.md b/README_RU.md
+index 8fb14468..c1c0dc17 100644
+--- a/README_RU.md
++++ b/README_RU.md
+@@ -1,4 +1,4 @@
+-# Yank Note
++# Mark Note
+ 
+ **Гибкий, расширяемый** редактор Markdown, создан для повышения производительности. **[Скачать](https://github.com/purocean/yn/releases)** | **[Попробовать онлайн >>>](https://demo.yank-note.com/)**
+ 
+@@ -22,7 +22,7 @@
+ 
+ ## Внимание
+ 
+-- Ради большей расширяемости Yank Note жертвует защитой безопасности (выполнение команд, произвольное чтение и запись файлов). Если вы хотите использовать его для открытия постороннего файла Markdown, ⚠️**убедитесь, что содержимое файла заслуживает доверия**⚠️.
++- Ради большей расширяемости Mark Note жертвует защитой безопасности (выполнение команд, произвольное чтение и запись файлов). Если вы хотите использовать его для открытия постороннего файла Markdown, ⚠️**убедитесь, что содержимое файла заслуживает доверия**⚠️.
+ - Шифрование и дешифрование зашифрованных файлов выполняется на клиентской стороне. Пожалуйста, **убедитесь, что вы помните свой пароль**. Если пароль утерян, его можно только взломать.
+ 
+ ## Основнве функции
+diff --git a/help/FEATURES.md b/help/FEATURES.md
+index 0a9a1f85..0b1cb02a 100644
+--- a/help/FEATURES.md
++++ b/help/FEATURES.md
+@@ -3,11 +3,11 @@ headingNumber: true
+ enableMacro: true
+ customVar: Hello
+ define:
+-    --APP_NAME--: Yank Note
++    --APP_NAME--: Mark Note
+     --APP_VERSION--: '[= $ctx.version =]'
+ ---
+ 
+-# Yank-Note Features Instructions
++# Mark Note Features Instructions
+ 
+ English | [中文](./FEATURES_ZH-CN.md)
+ 
+@@ -618,7 +618,7 @@ test 3
+ 
+ ## AI Copilot
+ 
+-Yank Note integrates with artificial intelligence platforms such as [OpenAI](https://openai.com) and [Google AI](https://ai.google.dev/), enabling features like intelligent autocompletion and text rewriting.
++Mark Note integrates with artificial intelligence platforms such as [OpenAI](https://openai.com) and [Google AI](https://ai.google.dev/), enabling features like intelligent autocompletion and text rewriting.
+ 
+ > [!NOTE]
+ > You need to obtain the relevant API tokens yourself. *<a href="javascript: ctx.showExtensionManager('@yank-note/extension-openai')">Requires AI Copilot extension installed and enabled</a>*.
+@@ -648,13 +648,13 @@ variable name | type | description
+ > [!NOTE]
+ > *<a href="javascript: ctx.showPremium()">Available in premium version</a>*
+ 
+-Yank Note allows you to embed macros in the page to dynamically replace the document.
++Mark Note allows you to embed macros in the page to dynamically replace the document.
+ 
+ > [!IMPORTANT]
+ > Before using, you need to enable macro replacement in Front Matter and define `enableMacro: true`.
+ 
+ > [!WARNING]
+-> Using macro replacement may lead to inaccurate correspondence between source code and preview line numbers. Yank Note has dealt with it as much as possible, but some cases may still cause synchronous scrolling exceptions.
++> Using macro replacement may lead to inaccurate correspondence between source code and preview line numbers. Mark Note has dealt with it as much as possible, but some cases may still cause synchronous scrolling exceptions.
+ 
+ ### Definition
+ 
+diff --git a/help/FEATURES_ZH-CN.md b/help/FEATURES_ZH-CN.md
+index ec550d73..49bf7851 100644
+--- a/help/FEATURES_ZH-CN.md
++++ b/help/FEATURES_ZH-CN.md
+@@ -3,11 +3,11 @@ headingNumber: true
+ enableMacro: true
+ customVar: Hello
+ define:
+-    --APP_NAME--: Yank Note
++    --APP_NAME--: Mark Note
+     --APP_VERSION--: '[= $ctx.version =]'
+ ---
+ 
+-# Yank-Note 特色功能使用说明
++# Mark Note 特色功能使用说明
+ 
+ [English](./FEATURES.md) | 中文
+ 
+@@ -615,7 +615,7 @@ test 3
+ 
+ ## AI Copilot 人工智能写作助手
+ 
+-Yank Note 接入了 [OpenAI](https://openai.com)、[Google AI](https://ai.google.dev/) 等人工智能平台，可以使用人工智能进行智能补全、文本重写等功能
++Mark Note 接入了 [OpenAI](https://openai.com)、[Google AI](https://ai.google.dev/) 等人工智能平台，可以使用人工智能进行智能补全、文本重写等功能
+ 
+ > [!NOTE]
+ > 相关 API token 需要你自行获取。且需要 *<a href="javascript: ctx.showExtensionManager('@yank-note/extension-ai-copilot')">安装并启用 AI Copilot 扩展</a>*
+@@ -646,13 +646,13 @@ Yank Note 接入了 [OpenAI](https://openai.com)、[Google AI](https://ai.google
+ > [!NOTE]
+ > 此功能 *<a href="javascript: ctx.showPremium()">高级版可用</a>*
+ 
+-Yank Note 允许你在页面中嵌入宏，用以动态地替换文档。
++Mark Note 允许你在页面中嵌入宏，用以动态地替换文档。
+ 
+ > [!IMPORTANT]
+ > 使用前需要先在 Front Matter 开启宏替换，定义 `enableMacro: true`。
+ 
+ > [!WARNING]
+-> 使用宏替换可能会导致源码和预览行号对应不准确，Yank Note 已经尽可能处理，但某些情况可能仍然会出现同步滚动异常。
++> 使用宏替换可能会导致源码和预览行号对应不准确，Mark Note 已经尽可能处理，但某些情况可能仍然会出现同步滚动异常。
+ 
+ ### 文本替换
+ 
+diff --git a/help/PLUGIN.md b/help/PLUGIN.md
+index 3b26aa92..c5fc5d9e 100644
+--- a/help/PLUGIN.md
++++ b/help/PLUGIN.md
+@@ -10,11 +10,11 @@ English | [中文](./PLUGIN_ZH-CN.md)
+ 
+ ## Preface
+ 
+-Yank Note is a open source, completely **hackable** note application.
++Mark Note is a open source, completely **hackable** note application.
+ 
+ My vision is to allow users to customize their own editor according to their own ideas, so that this editor can better assist users in their work and study. For example, for the scenario of [Git Submit](https://github.com/purocean/yn/issues/65#issuecomment-962472562), users can write their own plug-ins to implement this function without waiting for developers to adapt.
+ 
+-At now, almost all functions inside Yank Note are implemented through a thin plug-in system ([dozens of built-in plug-ins](https://github.com/purocean/yn/tree/develop/src/renderer/plugins)). The capabilities used by the built-in plug-ins are exactly the same as the plug-ins written by users, and you can even use some third-party libraries used by Yank Note in the plug-ins.
++At now, almost all functions inside Mark Note are implemented through a thin plug-in system ([dozens of built-in plug-ins](https://github.com/purocean/yn/tree/develop/src/renderer/plugins)). The capabilities used by the built-in plug-ins are exactly the same as the plug-ins written by users, and you can even use some third-party libraries used by Mark Note in the plug-ins.
+ 
+ ## Write A Plug-In
+ 
+@@ -46,14 +46,14 @@ Now you can see the "HELLO" menu in the status bar expectantly.
+ 
+ ## Core Concepts
+ 
+-Yank Note has some concepts that are the basis for supporting the entire plug-in system：
++Mark Note has some concepts that are the basis for supporting the entire plug-in system：
+ 
+ 1. Hook
+ 1. Action
+ 
+ ### Hook
+ 
+-When Yank Note performs some operations, it will trigger some hook calls.
++When Mark Note performs some operations, it will trigger some hook calls.
+ 
+ Use [`ctx.registerHook`](https://yn-api-doc.vercel.app/modules/renderer_core_hook.html#registerHook) to register a hook processing method.
+ 
+@@ -77,7 +77,7 @@ For internal hook types, please refer to [Api Document](https://yn-api-doc.verce
+ 
+ ### Action
+ 
+-Yank Note has an Action Center [`ctx.action`](https://yn-api-doc.vercel.app/modules/renderer_core_action.html), which provides action management and operation。
++Mark Note has an Action Center [`ctx.action`](https://yn-api-doc.vercel.app/modules/renderer_core_action.html), which provides action management and operation。
+ 
+ For internal action, please refer to [Api Document](https://yn-api-doc.vercel.app/modules/renderer_types.html#BuildInActions)
+ 
+@@ -102,7 +102,7 @@ If you want to distribute your own plugins/themes to others, please refer to htt
+ 
+ ## More
+ 
+-In general, Yank Note encourages users to create their own work-learning tools that only need a few lines of code to help their work and study.
++In general, Mark Note encourages users to create their own work-learning tools that only need a few lines of code to help their work and study.
+ 
+ In addition, if you only need to create some handy tools, you don't need to write plug-ins, you can use [RunCode](FEATURES.md#RunCode) function or write [Widgets](FEATURES.md#Widgets) to achieve. The ability to run js code here is also completely open, and the global variable `ctx` also has all the above functions.
+ 
+diff --git a/help/PLUGIN_ZH-CN.md b/help/PLUGIN_ZH-CN.md
+index 4110fc34..2ff09e7e 100644
+--- a/help/PLUGIN_ZH-CN.md
++++ b/help/PLUGIN_ZH-CN.md
+@@ -10,11 +10,11 @@ headingNumber: true
+ 
+ ## 前言
+ 
+-Yank Note 是一个完全开放，Hackable 的笔记应用。
++Mark Note 是一个完全开放，Hackable 的笔记应用。
+ 
+ 我的理想是让用户可以按照自己的想法来定制自己的编辑器，让这款编辑器可以更好的辅助用户的工作和学习。比如针对 [Git 提交](https://github.com/purocean/yn/issues/65#issuecomment-962472562) 的这个场景，用户就可以自己编写插件来实现这个功能，不用等到开发者来适配。
+ 
+-目前，Yank Note 内部几乎所有功能功能，均是通过一套薄薄的插件体系来实现（[几十个内置插件](https://github.com/purocean/yn/tree/develop/src/renderer/plugins)）。内置插件所用到的能力，和用户编写的插件完全一致，甚至你可以在插件中使用一些 Yank Note 使用的第三方库。
++目前，Mark Note 内部几乎所有功能功能，均是通过一套薄薄的插件体系来实现（[几十个内置插件](https://github.com/purocean/yn/tree/develop/src/renderer/plugins)）。内置插件所用到的能力，和用户编写的插件完全一致，甚至你可以在插件中使用一些 Mark Note 使用的第三方库。
+ 
+ ## 编写一个插件
+ 
+@@ -46,14 +46,14 @@ Yank Note 是一个完全开放，Hackable 的笔记应用。
+ 
+ ## 核心概念
+ 
+-Yank Note 有一些概念，是支撑整个插件体系的基础：
++Mark Note 有一些概念，是支撑整个插件体系的基础：
+ 
+ 1. Hook 钩子
+ 1. Action 动作
+ 
+ ### Hook 钩子
+ 
+-Yank Note 在执行一些操作的时候，会触发一些钩子调用。
++Mark Note 在执行一些操作的时候，会触发一些钩子调用。
+ 
+ 使用 [`ctx.registerHook`](https://yn-api-doc.vercel.app/modules/renderer_core_hook.html#registerHook) 可以注册一个钩子处理方法。使用 [`ctx.triggerHook`](https://yn-api-doc.vercel.app/modules/renderer_core_hook.html#triggerHook) 则可以触发一个钩子。
+ 
+@@ -75,7 +75,7 @@ Yank Note 在执行一些操作的时候，会触发一些钩子调用。
+ 
+ ### Action 动作
+ 
+-Yank Note 有一个 Action 中心 [`ctx.action`](https://yn-api-doc.vercel.app/modules/renderer_core_action.html)，提供动作的管理和运行。
++Mark Note 有一个 Action 中心 [`ctx.action`](https://yn-api-doc.vercel.app/modules/renderer_core_action.html)，提供动作的管理和运行。
+ 
+ 内部 Action 可以参考 [Api 文档](https://yn-api-doc.vercel.app/modules/renderer_types.html#BuildInActions)
+ 
+@@ -100,7 +100,7 @@ console.log(Object.keys(ctx).join('\n'))
+ 
+ ## 更多
+ 
+-总体来说，Yank Note 鼓励用户打造自己的工作学习工具，只需要几行代码，即可给自己的工作学习助力。
++总体来说，Mark Note 鼓励用户打造自己的工作学习工具，只需要几行代码，即可给自己的工作学习助力。
+ 
+ 另外，如果您只需要打造一些趁手的工具，可以不用编写插件，可以使用[代码运行](FEATURES_ZH-CN.md#运行代码)功能或者编写 [小工具](FEATURES_ZH-CN.md#小工具)来实现。这里的 js 代码运行能力也是完全开放，全局变量 `ctx` 也具有上述所有的功能。
+ 
+diff --git a/src/main/app.ts b/src/main/app.ts
+index d13ade5d..477178ca 100644
+--- a/src/main/app.ts
++++ b/src/main/app.ts
+@@ -482,7 +482,7 @@ const showOpenDialog = (params: OpenDialogOptions) => {
+ }
+ 
+ const showTray = () => {
+-  const img = isMacos ? 'trayTemplate.png' : 'tray.png'
++  const img = isMacos ? 'trayTemplate.png' : 'icon_bak.png'
+   tray = new Tray(path.join(__dirname, `./assets/${img}`))
+   tray.setToolTip(`${$t('app-name')} - ${$t('slogan')}`)
+   if (isMacos) {
+@@ -510,7 +510,7 @@ async function tryOpenFile (path: string) {
+     jsonRPCClient.call.ctx.doc.switchDocByPath(path)
+     showWindow()
+   } else {
+-    win && dialog.showMessageBox(win, { message: 'Yank Note only support open file.' })
++    win && dialog.showMessageBox(win, { message: 'Mark Note only support open file.' })
+   }
+ }
+ 
+diff --git a/src/renderer/__tests__/others/extension.ts b/src/renderer/__tests__/others/extension.ts
+index 89c8e15a..ee097e94 100644
+--- a/src/renderer/__tests__/others/extension.ts
++++ b/src/renderer/__tests__/others/extension.ts
+@@ -44,7 +44,7 @@ test('readInfoFromJson', () => {
+     readmeUrl: '',
+     changelogUrl: '',
+     compatible: {
+-      reason: 'Not yank note extension.',
++      reason: 'Not mark note extension.',
+       value: false,
+     },
+     requirements: {},
+@@ -103,7 +103,7 @@ test('readInfoFromJson', () => {
+     license: '',
+     requirements: { premium: true, terminal: false },
+     compatible: {
+-      reason: 'Need Yank Note [>=3.30.0].',
++      reason: 'Need Mark Note [>=3.30.0].',
+       value: false,
+     },
+     readmeUrl: '',
+@@ -131,7 +131,7 @@ test('readInfoFromJson', () => {
+     homepage: '',
+     license: '',
+     compatible: {
+-      reason: 'Not yank note extension.',
++      reason: 'Not mark note extension.',
+       value: false,
+     },
+     readmeUrl: '',
+@@ -174,7 +174,7 @@ test('readInfoFromJson', () => {
+     homepage: '',
+     license: '',
+     compatible: {
+-      reason: 'Not yank note extension.',
++      reason: 'Not mark note extension.',
+       value: false,
+     },
+     readmeUrl: 'readmeUrl',
+diff --git a/src/renderer/components/ExtensionManager.vue b/src/renderer/components/ExtensionManager.vue
+index bfcdd795..a38a839e 100644
+--- a/src/renderer/components/ExtensionManager.vue
++++ b/src/renderer/components/ExtensionManager.vue
+@@ -27,7 +27,7 @@
+                 <div class="description">{{ item.description }}</div>
+                 <div class="bottom">
+                   <div v-if="item.origin === 'official'" class="author">
+-                    <i><svg-icon name="codicon-verified-filled" height="16px" style="margin-top: -2px;" />Yank Note</i>
++                    <i><svg-icon name="codicon-verified-filled" height="16px" style="margin-top: -2px;" />Mark Note</i>
+                   </div>
+                   <div v-else class="author" >{{ item.author.name }}</div>
+                   <div class="status-list">
+@@ -76,7 +76,7 @@
+                     <span>{{ $t('extension.author') }}</span>
+                     <span v-if="currentExtension.origin === 'official'">
+                       <svg-icon name="codicon-verified-filled" height="16px" style="margin-top: -4px;margin-bottom: -2px;" />
+-                      <i>Yank Note</i>
++                      <i>Mark Note</i>
+                     </span>
+                     <span v-else>{{ currentExtension.author.name }}</span>
+                   </div>
+diff --git a/src/renderer/embed/index.html b/src/renderer/embed/index.html
+index 9fdaffa8..495ebb15 100644
+--- a/src/renderer/embed/index.html
++++ b/src/renderer/embed/index.html
+@@ -6,7 +6,7 @@
+     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+     <link rel="icon" href="../assets/favicon.ico">
+     <link rel="stylesheet" href="../styles/index.scss">
+-    <title>Yank Note</title>
++    <title>Mark Note</title>
+     <script>
+       // initial theme
+       window.document.documentElement.setAttribute('app-theme', JSON.parse(localStorage['app.theme'] || '"system"'))
+diff --git a/src/renderer/index.html b/src/renderer/index.html
+index bc5b630f..5e7aeace 100644
+--- a/src/renderer/index.html
++++ b/src/renderer/index.html
+@@ -6,7 +6,7 @@
+     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+     <link rel="icon" href="./assets/favicon.ico">
+     <link rel="stylesheet" href="./styles/index.scss">
+-    <title>Yank Note</title>
++    <title>Mark Note</title>
+     <script>
+       // 强制 monaco-editor 使用 浏览器模式
+       window.nodeRequire = window.require
+diff --git a/src/renderer/others/extension.ts b/src/renderer/others/extension.ts
+index 2b1e54aa..9e6f9d47 100644
+--- a/src/renderer/others/extension.ts
++++ b/src/renderer/others/extension.ts
+@@ -49,7 +49,7 @@ export function getLoadStatus (id: string): ExtensionLoadStatus {
+ 
+ export function getCompatible (engines?: { 'yank-note': string }): ExtensionCompatible {
+   if (!engines || !engines['yank-note']) {
+-    return { value: false, reason: 'Not yank note extension.' }
++    return { value: false, reason: 'Not mark note extension.' }
+   }
+ 
+   const engineVersion = __APP_VERSION__
+@@ -58,7 +58,7 @@ export function getCompatible (engines?: { 'yank-note': string }): ExtensionComp
+ 
+   return {
+     value,
+-    reason: value ? 'Compatible' : `Need Yank Note [${engines['yank-note']}].`,
++    reason: value ? 'Compatible' : `Need Mark Note [${engines['yank-note']}].`,
+   }
+ }
+ 
+diff --git a/src/renderer/services/export.ts b/src/renderer/services/export.ts
+index d246fa0d..85baf40a 100644
+--- a/src/renderer/services/export.ts
++++ b/src/renderer/services/export.ts
+@@ -21,7 +21,7 @@ function buildHtml (title: string, body: string, options: { includeStyle: boolea
+ <html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+   <head>
+     <meta charset="utf-8" />
+-    <meta name="generator" content="Yank Note" />
++    <meta name="generator" content="Mark Note" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+     <title>${escape(title)}</title>
+     ${
+diff --git a/src/renderer/services/view.ts b/src/renderer/services/view.ts
+index ff7855e9..61c79d63 100644
+--- a/src/renderer/services/view.ts
++++ b/src/renderer/services/view.ts
+@@ -250,7 +250,7 @@ export async function getContentHtml (options: BuildInHookTypes['VIEW_ON_GET_HTM
+ 
+     await filter(div)
+ 
+-    div.firstElementChild?.setAttribute('powered-by', 'Yank Note')
++    div.firstElementChild?.setAttribute('powered-by', 'Mark Note')
+     return div.innerHTML || ''
+   }
+ 
+diff --git a/src/renderer/support/ga.ts b/src/renderer/support/ga.ts
+index 97afc389..5f42ea94 100644
+--- a/src/renderer/support/ga.ts
++++ b/src/renderer/support/ga.ts
+@@ -13,7 +13,7 @@ const ga = new FirebaseAnalyticsJS({ measurementId }, {
+   screenRes: `${window.screen.width}x${window.screen.height}`,
+   customArgs: {
+     uafvl: navigator.userAgent,
+-    'ep.app_name': 'Yank Note',
++    'ep.app_name': 'Mark Note',
+     'ep.app_version': ctx.version,
+     'ep.yn_theme': { toString: () => ctx.theme.getThemeName() } as string,
+     'ep.yn_lang': { toString: () => ctx.i18n.getCurrentLanguage() } as string,
+diff --git a/src/share/i18n/languages/en.ts b/src/share/i18n/languages/en.ts
+index a391a0cc..514a25d8 100644
+--- a/src/share/i18n/languages/en.ts
++++ b/src/share/i18n/languages/en.ts
+@@ -1,7 +1,7 @@
+ /* eslint-disable quote-props */
+ 
+ const data = {
+-  'app-name': 'Yank Note',
++  'app-name': 'Mark Note',
+   'about': 'About',
+   'feedback': 'Feedback',
+   'slogan': 'A highly extensible Markdown editor, designed for productivity.',
+@@ -33,7 +33,7 @@ const data = {
+   'outline': 'Outline',
+   'files': 'Files',
+   'install-extension-tips': 'Please install and enable the "%s" extension first',
+-  'not-support-mas': 'Yank Note downloaded from the Mac Apple Store does not support this extension.',
++  'not-support-mas': 'Mark Note downloaded from the Mac Apple Store does not support this extension.',
+   'learn-more': 'Learn More',
+   'default': 'Default',
+   'print': 'Print',
+@@ -64,7 +64,7 @@ const data = {
+       'intro': 'Intro',
+       'current-plan': 'Current Plan',
+       'included': 'Included',
+-      'desc': 'Yank Note is open-source, I\'ve been constantly developing it since 2018. It takes my energy and money. Now a premium version is available. If you want to support my development or need advanced features, you can buy a license.',
++      'desc': 'Mark Note is open-source, I\'ve been constantly developing it since 2018. It takes my energy and money. Now a premium version is available. If you want to support my development or need advanced features, you can buy a license.',
+       'free-desc': 'For most users',
+       'premium-desc': 'More features',
+       'free-list': 'Basic Editing\nGraphic Embedding\nRun Code Snippet\nHTML Applets\nEncryption\nTerminal Integration\nDocument History\nExtension',
+@@ -96,7 +96,7 @@ const data = {
+       'activating': 'Activating',
+       'tips': 'If you have trouble, please contact me',
+       'tips-wechat': 'Wechat',
+-      'activation-tips': 'Make sure your network can access <a href="https://yank-note.com" target="_blank">https://yank-note.com</a> before activating',
++      'activation-tips': 'Make sure your network can access <a href="https://mark-note.com" target="_blank">https://mark-note.com</a> before activating',
+       'offline-activation': 'Offline Activation',
+       'online-activation': 'Online Activation',
+       'get-activation-token': 'Get Activation Token',
+@@ -128,7 +128,7 @@ const data = {
+     },
+     'updater': {
+       'found-dialog': {
+-        'title': 'Yank Note - Newer version was found',
++        'title': 'Mark Note - Newer version was found',
+         'desc': 'Current version: %s\nNewer version: %s',
+         'buttons': {
+           'download': 'Download',
+@@ -139,15 +139,15 @@ const data = {
+         }
+       },
+       'progress-bar': {
+-        'title': 'Yank Note - Download',
++        'title': 'Mark Note - Download',
+         'detail': 'Downloading %s',
+         'failed': 'Download failed: %s'
+       },
+       'failed-dialog': {
+-        'title': 'Yank Note - Something went wrong',
++        'title': 'Mark Note - Something went wrong',
+       },
+       'install-dialog': {
+-        'title': 'Yank Note - Download complete',
++        'title': 'Mark Note - Download complete',
+         'desc': 'Do you want to install it now?',
+         'buttons': {
+           'install': 'Install',
+@@ -155,7 +155,7 @@ const data = {
+         }
+       },
+       'no-newer-dialog': {
+-        'title': 'Yank Note - No newer version',
++        'title': 'Mark Note - No newer version',
+         'desc': 'The current version is up-to-date'
+       }
+     },
+@@ -534,7 +534,12 @@ const data = {
+       'api-title': 'PicGo Api',
+       'api-desc': 'PicGo default URL: http://127.0.0.1:36677/upload',
+       'api-msg': 'Must starts with http://',
+-      'paste-title': 'Paste image with PicGo'
++      'paste-title': 'Paste image with PicGo',
++      'format-title': 'Image Format',
++      'format-desc': 'Select the format for inserted images',
++      'format-default': 'Default format',
++      'format-html-align': 'HTML format align',
++      'format-html': 'HTML format',
+     },
+     'uploading': 'Uploading',
+     'upload-failed': 'Upload Failed',
+diff --git a/src/share/i18n/languages/ru.ts b/src/share/i18n/languages/ru.ts
+index 3a7f8e10..9f13b408 100644
+--- a/src/share/i18n/languages/ru.ts
++++ b/src/share/i18n/languages/ru.ts
+@@ -2,7 +2,7 @@
+ import type { BaseLanguage } from './en'
+ 
+ const data: BaseLanguage = {
+-  'app-name': 'Yank Note',
++  'app-name': 'Mark Note',
+   'about': 'О проекте',
+   'feedback': 'Поддержка',
+   'slogan': 'Гибкий, расширяемый редактор Markdown, создан для повышения производительности.',
+@@ -34,7 +34,7 @@ const data: BaseLanguage = {
+   'outline': 'Конспект',
+   'files': 'Файлы',
+   'install-extension-tips': 'Пожалуйста, сначала установите и включите расширение "%s"',
+-  'not-support-mas': 'Yank Note загруженный из Mac Apple Store, не поддерживает это расширение.',
++  'not-support-mas': 'Mark Note загруженный из Mac Apple Store, не поддерживает это расширение.',
+   'learn-more': 'Узнать больше',
+   'default': 'По умолчанию',
+   'print': 'Печать',
+@@ -65,7 +65,7 @@ const data: BaseLanguage = {
+       'intro': 'Описание',
+       'current-plan': 'Текущий план',
+       'included': 'Включено',
+-      'desc': 'Yank Note это проект с открытым исходным кодом, я постоянно развиваю его с 2018 года. На это уходят мои силы и деньги. Теперь доступна премиум-версия. Если вы хотите поддержать мое развитие или вам нужны дополнительные функции, вы можете купить лицензию.',
++      'desc': 'Mark Note это проект с открытым исходным кодом, я постоянно развиваю его с 2024 года. На это уходят мои силы и деньги. Теперь доступна премиум-версия. Если вы хотите поддержать мое развитие или вам нужны дополнительные функции, вы можете купить лицензию.',
+       'free-desc': 'Для большинства пользователей',
+       'premium-desc': 'Дополнительные возможности',
+       'free-list': 'Basic Editing\nGraphic Embedding\nRun Code Snippet\nHTML Applets\nEncryption\nTerminal Integration\nDocument History\nExtension',
+@@ -97,7 +97,7 @@ const data: BaseLanguage = {
+       'activating': 'Активация',
+       'tips': 'Если у вас возникнут проблемы, пожалуйста, свяжитесь со мной',
+       'tips-wechat': 'Wechat',
+-      'activation-tips': 'Перед активацией убедитесь, что у вас есть доступ к <a href="https://yank-note.com" target="_blank">https://yank-note.com</a>',
++      'activation-tips': 'Перед активацией убедитесь, что у вас есть доступ к <a href="https://mark-note.com" target="_blank">https://mark-note.com</a>',
+       'offline-activation': 'Оффлайн активация',
+       'online-activation': 'Онлайн активация',
+       'get-activation-token': 'Получить токен активации',
+@@ -129,7 +129,7 @@ const data: BaseLanguage = {
+     },
+     'updater': {
+       'found-dialog': {
+-        'title': 'Yank Note - доступна новая версия',
++        'title': 'Mark Note - доступна новая версия',
+         'desc': 'Текущая версия: %s\nНовая версия: %s',
+         'buttons': {
+           'download': 'Скачать',
+@@ -140,15 +140,15 @@ const data: BaseLanguage = {
+         }
+       },
+       'progress-bar': {
+-        'title': 'Yank Note - обновление',
++        'title': 'Mark Note - обновление',
+         'detail': 'Загрузка %s',
+         'failed': 'Не удалось загрузить: %s'
+       },
+       'failed-dialog': {
+-        'title': 'Yank Note - что-то пошло не так',
++        'title': 'Mark Note - что-то пошло не так',
+       },
+       'install-dialog': {
+-        'title': 'Yank Note - загрузка завершена',
++        'title': 'Mark Note - загрузка завершена',
+         'desc': 'Установить прямо сейчас?',
+         'buttons': {
+           'install': 'Установить',
+@@ -156,7 +156,7 @@ const data: BaseLanguage = {
+         }
+       },
+       'no-newer-dialog': {
+-        'title': 'Yank Note - нет новых версий',
++        'title': 'Mark Note - нет новых версий',
+         'desc': 'У вас установлена самая последняя версия'
+       }
+     },
+@@ -535,7 +535,12 @@ const data: BaseLanguage = {
+       'api-title': 'PicGo API',
+       'api-desc': 'URL-адрес PicGo по умолчанию: http://127.0.0.1:36677/upload',
+       'api-msg': 'Должен начинаться с http://',
+-      'paste-title': 'Вставить изображение с помощью PicGo'
++      'paste-title': 'Вставить изображение с помощью PicGo',
++      'format-title': 'Формат изображения',
++      'format-desc': 'Формат вставляемых изображений',
++      'format-default': 'По умолчанию',
++      'format-html': 'HTML формат',
++      'format-html-align': 'HTML формат',
+     },
+     'uploading': 'Загрузка',
+     'upload-failed': 'Загрузка не удалась',
+diff --git a/src/share/i18n/languages/zh-CN.ts b/src/share/i18n/languages/zh-CN.ts
+index 99e8f647..05d711aa 100644
+--- a/src/share/i18n/languages/zh-CN.ts
++++ b/src/share/i18n/languages/zh-CN.ts
+@@ -2,7 +2,7 @@
+ import type { BaseLanguage } from './en'
+ 
+ const data: BaseLanguage = {
+-  'app-name': 'Yank Note',
++  'app-name': 'Mark Note',
+   'about': '关于',
+   'feedback': '反馈',
+   'slogan': '一款强大可扩展的 Markdown 编辑器，为生产力而生',
+@@ -65,7 +65,7 @@ const data: BaseLanguage = {
+       'intro': '介绍',
+       'current-plan': '当前版本',
+       'included': '已包含',
+-      'desc': 'Yank Note 是一款开源笔记应用，从 2018 年开始，一直在不断开发和更新。因为软件的开发和维护需要精力和资金，现推出付费高级版。如果你想支持我的开发工作，或需要使用高级版功能，可以选择购买高级版。',
++      'desc': 'Mark Note 是一款开源笔记应用，从 2018 年开始，一直在不断开发和更新。因为软件的开发和维护需要精力和资金，现推出付费高级版。如果你想支持我的开发工作，或需要使用高级版功能，可以选择购买高级版。',
+       'free-desc': '满足大部分用户需求',
+       'premium-desc': '更多高级功能',
+       'free-list': '基础编辑功能\n图形嵌入\n运行代码片段\nHTML 小工具\n文档加密\n内置终端\n文档历史\n插件扩展',
+@@ -97,7 +97,7 @@ const data: BaseLanguage = {
+       'activating': '激活中',
+       'tips': '如果您在激活过程中遇到问题，请联系我',
+       'tips-wechat': '微信',
+-      'activation-tips': '激活前请确保您的网络可以正常访问到 <a href="https://yank-note.com" target="_blank">https://yank-note.com</a>',
++      'activation-tips': '激活前请确保您的网络可以正常访问到 <a href="https://mark-note.com" target="_blank">https://mark-note.com</a>',
+       'offline-activation': '离线激活',
+       'online-activation': '在线激活',
+       'get-activation-token': '获取离线激活码',
+@@ -129,7 +129,7 @@ const data: BaseLanguage = {
+     },
+     'updater': {
+       'found-dialog': {
+-        'title': 'Yank Note - 发现新版本',
++        'title': 'Mark Note - 发现新版本',
+         'desc': '当前版本: %s\n新版本: %s',
+         'buttons': {
+           'download': '下载',
+@@ -140,15 +140,15 @@ const data: BaseLanguage = {
+         }
+       },
+       'progress-bar': {
+-        'title': 'Yank Note - 下载',
++        'title': 'Mark Note - 下载',
+         'detail': '下载中 %s',
+         'failed': '下载失败: %s'
+       },
+       'failed-dialog': {
+-        'title': 'Yank Note - 出现了一些错误',
++        'title': 'Mark Note - 出现了一些错误',
+       },
+       'install-dialog': {
+-        'title': 'Yank Note - 下载完成',
++        'title': 'Mark Note - 下载完成',
+         'desc': '新版本下载完成，是否要立即安装？',
+         'buttons': {
+           'install': '安装',
+@@ -156,7 +156,7 @@ const data: BaseLanguage = {
+         }
+       },
+       'no-newer-dialog': {
+-        'title': 'Yank Note - 无新版本',
++        'title': 'Mark Note - 无新版本',
+         'desc': '当前已是最新版本'
+       }
+     },
+@@ -535,7 +535,12 @@ const data: BaseLanguage = {
+       'api-title': 'PicGo 接口',
+       'api-desc': 'PicGo 默认接口地址：http://127.0.0.1:36677/upload',
+       'api-msg': '必须以 http:// 开头',
+-      'paste-title': '粘贴图片使用 PicGo 图床'
++      'paste-title': '粘贴图片使用 PicGo 图床',
++      'format-title': '图片格式',
++      'format-desc': '选择插入图片时的格式',
++      'format-default': '默认格式',
++      'format-html': 'HTML格式',
++      'format-html-align': 'HTML格式并设置对齐',
+     },
+     'uploading': '上传中……',
+     'upload-failed': '上传失败',
+diff --git a/src/share/i18n/languages/zh-TW.ts b/src/share/i18n/languages/zh-TW.ts
+index 2e6d5a81..8bbdbc61 100644
+--- a/src/share/i18n/languages/zh-TW.ts
++++ b/src/share/i18n/languages/zh-TW.ts
+@@ -2,7 +2,7 @@
+ import type { BaseLanguage } from './en'
+ 
+ const data: BaseLanguage = {
+-  'app-name': 'Yank Note',
++  'app-name': 'Mark Note',
+   'about': '關於',
+   'feedback': '回饋',
+   'slogan': '一款強大可擴展的 Markdown 編輯器，為生產力而生',
+@@ -65,7 +65,7 @@ const data: BaseLanguage = {
+       'intro': '簡介',
+       'current-plan': '目前版本',
+       'included': '包含內容',
+-      'desc': 'Yank Note 是一款開源筆記應用，自 2018 年起持續開發、更新。由於軟體的開發、維護需要用心力與資金，決定推出付費高級版。如果您想支持我的開發工作，或需要使用高級版的功能，可以選擇購買高級版。',
++      'desc': 'Mark Note 是一款開源筆記應用，自 2024 年起持續開發、更新。由於軟體的開發、維護需要用心力與資金，決定推出付費高級版。如果您想支持我的開發工作，或需要使用高級版的功能，可以選擇購買高級版。',
+       'free-desc': '滿足大部分使用者需求',
+       'premium-desc': '更多高級功能',
+       'free-list': '基礎編輯功能\n圖形嵌入\n執行程式碼片段\nHTML 工具\n文件加密\n內建終端機\n文件歷史\n擴充套件',
+@@ -97,7 +97,7 @@ const data: BaseLanguage = {
+       'activating': '激活中',
+       'tips': '如果您在激活過程中遇到問題，請聯繫我',
+       'tips-wechat': '微信',
+-      'activation-tips': '激活前請確認您的網路能正常連線到 <a href="https://yank-note.com" target="_blank">https://yank-note.com</a>',
++      'activation-tips': '激活前請確認您的網路能正常連線到 <a href="https://mark-note.com" target="_blank">https://mark-note.com</a>',
+       'offline-activation': '離線激活',
+       'online-activation': '線上激活',
+       'get-activation-token': '取得離線激活代碼',
+@@ -129,7 +129,7 @@ const data: BaseLanguage = {
+     },
+     'updater': {
+       'found-dialog': {
+-        'title': 'Yank Note - 發現新版本',
++        'title': 'Mark Note - 發現新版本',
+         'desc': '目前版本: %s\n新版本: %s',
+         'buttons': {
+           'download': '下載',
+@@ -140,15 +140,15 @@ const data: BaseLanguage = {
+         }
+       },
+       'progress-bar': {
+-        'title': 'Yank Note - 下載',
++        'title': 'Mark Note - 下載',
+         'detail': '下載中 %s',
+         'failed': '下載失敗: %s'
+       },
+       'failed-dialog': {
+-        'title': 'Yank Note - 出現了一些錯誤',
++        'title': 'Mark Note - 出現了一些錯誤',
+       },
+       'install-dialog': {
+-        'title': 'Yank Note - 下載完成',
++        'title': 'Mark Note - 下載完成',
+         'desc': '新版本下載完成，是否要立即安裝？',
+         'buttons': {
+           'install': '安裝',
+@@ -156,7 +156,7 @@ const data: BaseLanguage = {
+         }
+       },
+       'no-newer-dialog': {
+-        'title': 'Yank Note - 無新版本',
++        'title': 'Mark Note - 無新版本',
+         'desc': '目前已是最新版本'
+       }
+     },
+@@ -535,7 +535,12 @@ const data: BaseLanguage = {
+       'api-title': 'PicGo 介面',
+       'api-desc': 'PicGo 預設介面地址：http://127.0.0.1:36677/upload',
+       'api-msg': '必須以 http:// 開頭',
+-      'paste-title': '貼上圖片使用 PicGo 圖床'
++      'paste-title': '貼上圖片使用 PicGo 圖床',
++      'format-title': '圖片格式',
++      'format-desc': '選擇插入圖片時的格式',
++      'format-default': '默認格式',
++      'format-html': 'HTML格式',
++      'format-html-align': 'HTML格式并设置对齐',
+     },
+     'uploading': '上傳中……',
+     'upload-failed': '上傳失敗',

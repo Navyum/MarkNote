@@ -1,0 +1,75 @@
+diff --git a/src/renderer/plugins/image-hosting-picgo.ts b/src/renderer/plugins/image-hosting-picgo.ts
+index bd1a9d40..7608ceb5 100644
+--- a/src/renderer/plugins/image-hosting-picgo.ts
++++ b/src/renderer/plugins/image-hosting-picgo.ts
+@@ -9,6 +9,7 @@ export default {
+     const uploadActionName = 'plugin.image-hosting-picgo.upload'
+     const settingKeyUrl = 'plugin.image-hosting-picgo.server-url'
+     const settingKeyPaste = 'plugin.image-hosting-picgo.enable-paste-image'
++    const settingKeyFormat = 'plugin.image-hosting-picgo.image-format'
+ 
+     ctx.setting.changeSchema((schema) => {
+       schema.properties[settingKeyUrl] = {
+@@ -23,6 +24,28 @@ export default {
+         group: 'image',
+       }
+ 
++      // 在 setting.changeSchema 中添加配置项
++      schema.properties[settingKeyFormat] = {
++        title: 'T_picgo.setting.format-title',
++        description: 'T_picgo.setting.format-desc',
++        type: 'string',
++        defaultValue: '![Img](url)\n',
++        required: true,
++        enum: [
++          '![Img](url)\n',
++          '<img src="url" />\n',
++          '<p align="center"><img src="url" width="80%"></p>\n',
++        ],
++        group: 'image',
++        options: {
++          enum_titles: [
++            'T_picgo.setting.format-default',
++            'T_picgo.setting.format-html',
++            'T_picgo.setting.format-html-align',
++          ]
++        }
++      }
++
+       schema.properties[settingKeyPaste] = {
+         title: 'T_picgo.setting.paste-title',
+         type: 'boolean',
+@@ -30,6 +53,7 @@ export default {
+         defaultValue: false,
+         group: 'image',
+       }
++
+     })
+ 
+     ctx.action.registerAction({
+@@ -123,7 +147,12 @@ export default {
+         throw new Error('No file opened.')
+       }
+       const url = await ctx.action.getActionHandler(uploadActionName)(file)
+-      ctx.editor.insert(`![Img](${url})\n`)
++      // 获取配置的图片格式
++      const format = ctx.setting.getSettings()[settingKeyFormat] || '![Img](url)'
++      // 替换占位符并插入编辑器
++      const markdown = format.replace('url', url)// 自动换行
++
++      ctx.editor.insert(markdown)
+     }
+ 
+     function addImage () {
+diff --git a/src/renderer/types.ts b/src/renderer/types.ts
+index eb61beb5..b77d96b2 100644
+--- a/src/renderer/types.ts
++++ b/src/renderer/types.ts
+@@ -447,6 +447,7 @@ export interface BuildInSettings {
+   'assets.path-type': 'relative' | 'absolute' | 'auto',
+   'plugin.image-hosting-picgo.server-url': string,
+   'plugin.image-hosting-picgo.enable-paste-image': boolean,
++  'plugin.image-hosting-picgo.image-format': string,
+   'license': string,
+   'mark': (BaseDoc & { name: string })[],
+   'updater.source': 'auto' | 'github' | 'yank-note',

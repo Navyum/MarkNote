@@ -210,7 +210,7 @@ export default defineComponent({
     })
 
     watch(statusText, () => {
-      document.title = currentFile.value ? (currentFile.value.name || currentFile.value.title || 'Mark Note') : t('file-status.no-file')
+      document.title = currentFile.value ? (currentFile.value.name || 'Mark Note') : t('file-status.no-file')
     }, { immediate: true })
 
     watch(isSaved, (val: boolean) => {

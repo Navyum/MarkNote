@@ -34,6 +34,35 @@ git diff upstream/develop HEAD -- README.md README_ZH-CN.md \
 git diff upstream/develop HEAD -- .github/workflows/release.yml \
     > "$PATCH_DIR/007-ci-mac-only.patch"
 
+git diff upstream/develop HEAD -- \
+    .typedoc.json README_RU.md \
+    src/renderer/embed/index.html src/renderer/index.html \
+    src/renderer/components/ExtensionManager.vue \
+    src/renderer/others/extension.ts \
+    src/renderer/__tests__/others/extension.ts \
+    src/renderer/services/export.ts src/renderer/services/view.ts \
+    src/renderer/support/ga.ts \
+    src/main/app.ts \
+    help/FEATURES.md help/FEATURES_ZH-CN.md help/PLUGIN.md help/PLUGIN_ZH-CN.md \
+    src/share/i18n/languages/en.ts src/share/i18n/languages/ru.ts \
+    src/share/i18n/languages/zh-CN.ts src/share/i18n/languages/zh-TW.ts \
+    > "$PATCH_DIR/008-brand-name-global.patch"
+
+git diff upstream/develop HEAD -- \
+    src/renderer/plugins/status-bar-help.tsx \
+    src/renderer/support/args.ts \
+    > "$PATCH_DIR/009-links-navyum.patch"
+
+git diff upstream/develop HEAD -- \
+    src/renderer/plugins/image-hosting-picgo.ts \
+    src/renderer/types.ts \
+    > "$PATCH_DIR/010-picgo-image-format.patch"
+
+git diff upstream/develop HEAD -- \
+    electron-builder.json \
+    scripts/notarize.js \
+    > "$PATCH_DIR/011-build-config.patch"
+
 # Remove empty patches
 find "$PATCH_DIR" -name "*.patch" -empty -delete
 

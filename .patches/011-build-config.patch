@@ -1,0 +1,59 @@
+diff --git a/electron-builder.json b/electron-builder.json
+index 3683fb08..1fbcdabf 100644
+--- a/electron-builder.json
++++ b/electron-builder.json
+@@ -1,7 +1,7 @@
+ {
+-  "appId": "yank.note",
+-  "productName": "Yank Note",
+-  "copyright": "Copyright 2018-2021 purocean@outlook.com",
++  "appId": "Mark.Note",
++  "productName": "Mark Note",
++  "copyright": "Copyright 2018-2025",
+   "asar": true,
+   "asarUnpack": [
+     "bin/**/*",
+@@ -17,7 +17,7 @@
+     "./dist/**",
+     "!node_modules/plantuml-pipe/vendor/*"
+   ],
+-  "artifactName": "Yank-Note-${os}-${arch}-${version}.${ext}",
++  "artifactName": "Mark-Note-${os}-${arch}-${version}.${ext}",
+   "directories": {
+     "output": "./out/"
+   },
+@@ -40,20 +40,19 @@
+     ]
+   },
+   "mac": {
+-    "icon": "./build/icon.icns",
++    "icon": "./build/micon.icns",
+     "gatekeeperAssess": false,
+     "hardenedRuntime": true,
+     "entitlements": "build/entitlements.mac.plist",
+     "entitlementsInherit": "build/entitlements.mac.plist",
+     "binaries": [
+-      "out/mac/Yank Note.app/Contents/Resources/app.asar.unpacked/bin/darwin-pandoc-2.14.2"
++      "out/mac/Mark Note.app/Contents/Resources/app.asar.unpacked/bin/darwin-pandoc-2.14.2"
+     ],
+     "target": [
+       "dmg",
+       "zip"
+     ]
+   },
+-  "afterSign": "scripts/notarize.js",
+   "nsis": {
+     "perMachine": false
+   },
+diff --git a/scripts/notarize.js b/scripts/notarize.js
+index a134da53..decb391a 100644
+--- a/scripts/notarize.js
++++ b/scripts/notarize.js
+@@ -15,6 +15,6 @@ exports.default = async function notarizing(context) {
+     appPath: `${appOutDir}/${appName}.app`,
+     appleId: process.env.APPLEID,
+     appleIdPassword: process.env.APPLEIDPASS,
+-    teamId: process.env.TEAMID,
++    //teamId: process.env.TEAMID,
+   });
+ };

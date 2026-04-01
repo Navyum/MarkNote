@@ -1,0 +1,41 @@
+diff --git a/src/renderer/plugins/status-bar-help.tsx b/src/renderer/plugins/status-bar-help.tsx
+index ee130889..723c2fe4 100644
+--- a/src/renderer/plugins/status-bar-help.tsx
++++ b/src/renderer/plugins/status-bar-help.tsx
+@@ -84,17 +84,17 @@ export default {
+                   <img src={logoImg} width="100" height="100" />
+                   <p>{ctx.i18n.t('slogan')}</p>
+                   <p>
+-                    <a href="https://github.com/purocean/yn/releases" target="_blank">{ctx.version}</a>
++                    <a href="https://github.com/Navyum/yn/releases" target="_blank">{ctx.version}</a>
+                     &nbsp;|&nbsp;
+                     <a href={HOMEPAGE_URL} target="_blank">Homepage</a>
+                     &nbsp;|&nbsp;
+-                    <a href="https://github.com/purocean/yn" target="_blank">Github</a>
++                    <a href="https://github.com/Navyum/yn" target="_blank">Github</a>
+                     &nbsp;|&nbsp;
+                     <a href="https://blog-purocean.vercel.app/yank-note-01/" target="_blank">Blog</a>
+                   </p>
+                   <p style={{ fontSize: '14px' }}>
+                     <span>CopyRight &copy; 2018 - {new Date().getFullYear()}</span>&nbsp;
+-                    <a href="https://github.com/purocean" target="_blank">purocean</a>
++                    <a href="https://github.com/Navyum" target="_blank">Navyum</a>
+                   </p>
+                 </div>
+               })
+diff --git a/src/renderer/support/args.ts b/src/renderer/support/args.ts
+index b904a51c..588f8fac 100644
+--- a/src/renderer/support/args.ts
++++ b/src/renderer/support/args.ts
+@@ -14,9 +14,9 @@ export function $args () {
+   return new URLSearchParams(win.location.search)
+ }
+ 
+-export const URL_GITHUB = 'https://github.com/purocean/yn'
++export const URL_GITHUB = 'https://github.com/Navyum/yn'
+ export const URL_MAS = 'https://apps.apple.com/cn/app/yank-note/id1551528618'
+-export const URL_MAS_LIMITATION = 'https://github.com/purocean/yn/issues/65#issuecomment-1065799677'
++export const URL_MAS_LIMITATION = 'https://github.com/Navyum/yn/issues/65#issuecomment-1065799677'
+ 
+ export const JWT_TOKEN = $args().get('token') || ''
+ export const MODE: 'normal' | 'share-preview' = $args().get('mode') || 'normal' as any
