@@ -1,0 +1,13 @@
+diff --git a/src/renderer/components/TitleBar.vue b/src/renderer/components/TitleBar.vue
+index 2ecdb0b5..c9f36072 100644
+--- a/src/renderer/components/TitleBar.vue
++++ b/src/renderer/components/TitleBar.vue
+@@ -210,7 +210,7 @@ export default defineComponent({
+     })
+ 
+     watch(statusText, () => {
+-      document.title = currentFile.value ? (currentFile.value.name || 'Yank Note') : t('file-status.no-file')
++      document.title = currentFile.value ? (currentFile.value.name || currentFile.value.title || 'Mark Note') : t('file-status.no-file')
+     }, { immediate: true })
+ 
+     watch(isSaved, (val: boolean) => {

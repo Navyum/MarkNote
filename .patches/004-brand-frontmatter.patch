@@ -1,0 +1,52 @@
+diff --git a/src/renderer/plugins/markdown-front-matter/index.ts b/src/renderer/plugins/markdown-front-matter/index.ts
+index e70bdc18..0cd4cac2 100644
+--- a/src/renderer/plugins/markdown-front-matter/index.ts
++++ b/src/renderer/plugins/markdown-front-matter/index.ts
+@@ -42,10 +42,44 @@ export default {
+       /* eslint-disable no-template-curly-in-string */
+ 
+       items.push(
+-        { language: 'markdown', label: '/ --- Front Matter', insertText: '---\nheadingNumber: true\nwrapCode: true\nenableMacro: true\nmdOptions: { linkify: true, breaks: true }\ndefine:\n    APP_NAME: Yank Note\n---\n', block: true },
++        { label: '/ --- Front Matter', insertText: '---\nheadingNumber: true\nwrapCode: true\nenableMacro: true\nmdOptions: { linkify: true, breaks: true }\ndefine:\n    APP_NAME: Mark Note\n---\n', block: true },
++        {
++          label: '/ --- VuePress Front Matter',
++          insertText: '---\n' + (() => {
++            const currentFile = ctx.store.state.currentFile
++            if (!currentFile) {
++              return 'title: Untitled\n'
++            }
++            const fullFileName = ctx.utils.path.basename(currentFile.path)
++            const fileExtension = ctx.utils.path.extname(fullFileName)
++            const title = fullFileName.replace(fileExtension, '')
++            const author = ctx.setting.getSetting('plugin.plugin-front-matter.author' as any) || 'navyum'
++            const date = ctx.lib.dayjs().format('YYYY-MM-DD HH:mm:ss')
++
++            return `title: ${title}
++author: ${author}
++date: ${date}
++
++article: false
++index: false
++
++headerDepth: 2
++sticky: false
++star: false
++
++category:
++  - \${1:笔记}
++tag:
++
++  - \${2:笔记}
++---`
++          })(),
++          block: true
++        }
+       )
+     })
++    
+ 
+     ctx.indexer.importScriptsToWorker(new URL(workerIndexerUrl, import.meta.url))
+   }
+-} as Plugin
++} as Plugin 
+\ No newline at end of file

@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index aab7ccb6..2d3e514e 100644
+--- a/package.json
++++ b/package.json
+@@ -1,7 +1,7 @@
+ {
+   "name": "yank.note",
+   "version": "3.87.1",
+-  "description": "Yank Note: A highly extensible Markdown editor, designed for productivity.",
++  "description": "Mark Note: A highly extensible Markdown editor, designed for productivity.",
+   "main": "dist/main/app.js",
+   "license": "AGPL-3.0",
+   "author": {

@@ -1,0 +1,149 @@
+diff --git a/src/renderer/others/premium.ts b/src/renderer/others/premium.ts
+index 1c79217c..dc115be9 100644
+--- a/src/renderer/others/premium.ts
++++ b/src/renderer/others/premium.ts
+@@ -100,16 +100,20 @@ async function upgradeV1License (oldLicense: string) {
+   upgradeTryCount++
+ 
+   try {
+-    const licenseId = await requestApi('upgradeLicense', { oldLicense, locale: getCurrentLanguage() })
+-    await activateLicense(licenseId)
++    //注释 vip认证
++    //const licenseId = await requestApi('upgradeLicense', { oldLicense, locale: getCurrentLanguage() })
++    //await activateLicense(licenseId)
++    
+     useToast().show('info', 'License upgraded successfully')
+     showPremium('activation')
+   } catch (error) {
+-    useToast().show('warning', `License upgrade failed, please contact support [${error}]`, 6000)
++    useToast().show('info', 'License upgraded successfully')
++    // useToast().show('warning', `License upgrade failed, please contact support [${error}]`, 6000)
+   }
+ }
+ 
+ function _getPurchased (force = false) {
++  /*
+   logger.debug('_getPurchased', force)
+   if (FLAG_DEMO || MODE === 'share-preview') {
+     return true
+@@ -119,8 +123,9 @@ function _getPurchased (force = false) {
+   if (typeof token === 'undefined' || force) {
+     token = getLicenseToken()
+   }
++  */
+ 
+-  return !!(token?.isAvailable)
++  return true    // !!(token?.isAvailable)
+ }
+ 
+ export function getPurchased (force = false) {
+@@ -133,14 +138,15 @@ export function getPurchased (force = false) {
+     lastPurchased = val
+   }
+ 
+-  return val
++  return true  //val
+ }
+ 
+ export function showPremium (tab?: PremiumTab) {
+   logger.debug('showPremium', tab)
+   upgradeTryCount = 0
+   getActionHandler('premium.show')(tab)
+-  ga.logEvent('yn_premium_show', { purchased: getPurchased() })
++  //注释谷歌分析
++  //ga.logEvent('yn_premium_show', { purchased: getPurchased() })
+ }
+ 
+ export function getLicenseToken () {
+@@ -156,15 +162,21 @@ export function getLicenseToken () {
+       return syncCacheLicenseToken(null)
+     }
+ 
++    /*
+     const token = new LicenseToken(
+       tokenStr.slice(tokenPrefix.length),
+       { publicOrPrivateKey: PREMIUM_PUBLIC_KEY }
+     )
++    */
++    
++    const token = null
+ 
++    /*
+     ga.setUserProperties({
+       expires: token.expires.toLocaleDateString(),
+       hash: md5(token.licenseId),
+     })
++    */
+ 
+     return syncCacheLicenseToken(token)
+   } catch (error) {
+@@ -225,6 +237,8 @@ async function checkDevice (device: string) {
+ 
+ export async function refreshLicense (opts?: { throwError?: boolean }) {
+   logger.debug('refreshLicense', opts)
++  
++  /*
+   try {
+     const token = getLicenseToken()
+     if (token) {
+@@ -238,27 +252,35 @@ export async function refreshLicense (opts?: { throwError?: boolean }) {
+       logger.error('refreshLicense', error)
+     }
+   }
++  */
+ }
+ 
+ export async function activateLicense (licenseId: string) {
+   logger.debug('activateLicense', licenseId)
++  
++  /*
+   await requestApi('addDevice', { licenseId })
+   await setLicense(licenseId)
++  */
+ }
+ 
+ export async function activateByTokenString (tokenString: string) {
+   logger.debug('activateByToken', tokenString)
+   await setSetting('license', tokenPrefix + tokenString)
++
++  /*
+   const token = getLicenseToken()
+   if (token) {
+     await checkDevice(token.device)
+   } else {
+     throw new Error('INVALID_LICENSE')
+   }
++  */
+ }
+ 
+ function checkLicenseStatus () {
+   logger.debug('checkLicenseStatus')
++  /*
+   const token = getLicenseToken()
+   if (token) {
+     if (token.status === 'stale') {
+@@ -275,6 +297,8 @@ function checkLicenseStatus () {
+       showPremium('activation')
+     }
+   }
++  */
++  
+ }
+ 
+ async function refreshAndCheckLicenseStatus () {
+@@ -283,11 +307,15 @@ async function refreshAndCheckLicenseStatus () {
+   }
+ 
+   logger.debug('refreshAndCheckLicenseStatus')
++  
++  /*
+   try {
+     await refreshLicense()
+   } finally {
+     checkLicenseStatus()
+   }
++  */
++  
+ }
+ 
+ registerHook('STARTUP', refreshAndCheckLicenseStatus)
