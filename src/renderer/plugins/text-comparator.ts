@@ -1,5 +1,5 @@
 import { Plugin } from '@fe/context'
-import type { BuildInActions } from '@fe/types'
+import type { BuildInActions, Doc } from '@fe/types'
 
 export default {
   name: 'text-comparator',
@@ -11,7 +11,15 @@ export default {
     const TextComparator = ctx.lib.vue.defineComponent({
       setup () {
         const { h } = ctx.lib.vue
-        return () => h(
+        const extensionInitialized = ctx.lib.vue.ref(ctx.getExtensionInitialized())
+
+        if (!extensionInitialized.value) {
+          ctx.whenExtensionInitialized().then(() => {
+            extensionInitialized.value = true
+          })
+        }
+
+        return () => extensionInitialized.value ? h(
           'div',
           { style: 'width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;' },
           [
@@ -22,7 +30,7 @@ export default {
               },
             }, ctx.i18n.t('install-extension-tips', extensionId))
           ]
-        )
+        ) : null
       }
     })
 
@@ -41,12 +49,40 @@ export default {
       name: compareTextActionId,
       description: ctx.i18n.t('status-bar.tool.open-text-comparator'),
       forUser: true,
-      handler: () => {
+      handler: (original?: Doc | null, modified?: Doc | null) => {
+        type Extra = {
+          original?: Doc | null
+          modified?: Doc | null
+        }
+
+        const currentFile = ctx.store.state.currentFile
+        if (
+          typeof original === 'undefined' &&
+          currentFile?.type === 'file' &&
+          currentFile.plain &&
+          ctx.repo.isNormalRepo(currentFile.repo)
+        ) {
+          original = ctx.doc.cloneDoc(currentFile)
+        }
+
+        if (typeof modified !== 'undefined') {
+          modified = ctx.doc.cloneDoc(modified)
+        }
+
+        if (original && (original.type !== 'file' || !original.plain)) {
+          throw new Error('Original doc is not a text file')
+        }
+
+        if (modified && (modified.type !== 'file' || !modified.plain)) {
+          throw new Error('Modified doc is not a text file')
+        }
+
         ctx.doc.switchDoc({
           type: editorDocType,
           name: 'Text Comparator',
           path: '',
-          repo: ctx.store.state.currentRepo?.name || ''
+          repo: editorDocType,
+          extra: currentFile ? { original, modified } satisfies Extra : null,
         })
       },
     })

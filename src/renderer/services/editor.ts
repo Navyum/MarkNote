@@ -13,10 +13,12 @@ import { getSetting } from './setting'
 import { t } from './i18n'
 import { language as markdownLanguage } from 'monaco-editor/esm/vs/basic-languages/markdown/markdown.js'
 import type { CustomEditor, CustomEditorCtx } from '@fe/types'
+import { FLAG_READONLY } from '@fe/support/args'
 
 export type SimpleCompletionItem = {
   label: string,
   kind?: Monaco.languages.CompletionItemKind,
+  language?: string,
   insertText: string,
   detail?: string,
   block?: boolean, // block completion
@@ -72,8 +74,7 @@ export const getDefaultOptions = (): Monaco.editor.IStandaloneEditorConstruction
   links: !isElectron,
   // wordWrapColumn: 40,
   mouseWheelZoom: getSetting('editor.mouse-wheel-zoom', true),
-  // try "same", "indent" or "none"
-  wrappingIndent: 'same',
+  wrappingIndent: getSetting('editor.wrap-indent', 'same'),
   smoothScrolling: true,
   cursorBlinking: 'smooth',
   scrollbar: getSetting('editor.minimap', true) ? {
@@ -100,7 +101,9 @@ export const getDefaultOptions = (): Monaco.editor.IStandaloneEditorConstruction
   stickyScroll: { enabled: getSetting('editor.sticky-scroll-enabled', true) },
   lightbulb: { enabled: 'on' as any },
   fontLigatures: getSetting('editor.font-ligatures', false),
-  wordSeparators: '`~!@#$%^&*()-=+[{]}\\|;:\'",.<>/?。？！，、；：“”‘’（）《》〈〉【】『』「」﹃﹄〔〕'
+  wordSeparators: '`~!@#$%^&*()-=+[{]}\\|;:\'",.<>/?。？！，、；：“”‘’（）《》〈〉【】『』「」﹃﹄〔〕',
+  rulers: getSetting('editor.rulers', '').split(',').filter(Boolean).map(Number),
+  mouseWheelScrollSensitivity: getSetting('editor.mouse-wheel-scroll-sensitivity', 1.0),
 })
 
 /**
@@ -162,6 +165,23 @@ export function highlightLine (line: number | [number, number], reveal?: boolean
 export function getOneIndent () {
   const options = editor.getModel()!.getOptions()
   return options.insertSpaces ? ' '.repeat(options.tabSize) : '\t'
+}
+
+/**
+ * Get language id of line.
+ * @param line
+ * @param model
+ * @returns
+ */
+export function getLineLanguageId (line: number, model?: Monaco.editor.ITextModel | null): string {
+  model ||= getEditor().getModel()
+
+  if ((model as any)?.tokenization?.grammarTokens?.getLineTokens) {
+    const lineTokens = (model as any).tokenization.grammarTokens.getLineTokens(line)
+    return lineTokens.getLanguageId()
+  } else {
+    throw new Error('Require model to be tokenized')
+  }
 }
 
 /**
@@ -372,7 +392,10 @@ export function replaceValue (search: string | RegExp, val: string, replaceAll =
  * @returns
  */
 export function getSelectionInfo () {
-  const selection = getEditor().getSelection()!
+  const selection = getEditor().getSelection()
+  if (!selection) {
+    return
+  }
 
   return {
     line: selection.positionLineNumber,
@@ -545,7 +568,12 @@ export async function isDirty (): Promise<boolean> {
     return !window.documentSaved
   }
 
-  return currentEditor?.getIsDirty ? (await currentEditor.getIsDirty()) : false
+  try {
+    return currentEditor?.getIsDirty ? (await currentEditor.getIsDirty()) : false
+  } catch (error) {
+    console.error(error)
+    return true
+  }
 }
 
 registerAction({
@@ -637,6 +665,23 @@ whenEditorReady().then(({ editor }) => {
     const value = model.getValue()
 
     triggerHook('EDITOR_CONTENT_CHANGE', { uri, value })
+  })
+
+  editor.onDidAttemptReadOnlyEdit(() => {
+    const currentFile = store.state.currentFile
+    let readonlyType: 'app-readonly' | 'no-file' | 'file-not-writable' | 'unsupported-file-type'
+
+    if (FLAG_READONLY) {
+      readonlyType = 'app-readonly'
+    } else if (!currentFile) {
+      readonlyType = 'no-file'
+    } else if (currentFile.writeable === false) {
+      readonlyType = 'file-not-writable'
+    } else {
+      readonlyType = 'unsupported-file-type'
+    }
+
+    triggerHook('EDITOR_ATTEMPT_READONLY_EDIT', { doc: currentFile || null, readonlyType })
   })
 })
 

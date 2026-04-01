@@ -165,7 +165,7 @@ export default defineComponent({
 
       if (file) {
         if (file.repo === HELP_REPO_NAME) {
-          return file.title
+          return file.name
         }
 
         if (!isSaved.value) {

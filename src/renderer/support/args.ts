@@ -52,9 +52,11 @@ export const DOM_ATTR_NAME = {
   WIKI_RESOURCE: 'wiki-resource',
   IS_ANCHOR: 'is-anchor',
   SKIP_EXPORT: 'skip-export',
+  DATA_HASHTAG: 'data-hashtag',
 }
 
 export const DOM_CLASS_NAME = {
+  HASH_TAG: 'hash-tag',
   PREVIEW_HIGHLIGHT: 'preview-highlight',
   PREVIEW_MARKDOWN_BODY: 'markdown-body',
   MARK_OPEN: 'open',
@@ -73,4 +75,5 @@ export const DOM_CLASS_NAME = {
   TASK_LIST_ITEM_CHECKBOX: 'task-list-item-checkbox',
   NEW_PAGE: 'new-page',
   AVOID_PAGE_BREAK: 'avoid-page-break',
+  CODE_SYNTAX_HIGHLIGHT_FONT: 'code-syntax-highlight-font',
 }

@@ -41,6 +41,7 @@ import { isSameFile } from '@fe/services/document'
 import { useI18n } from '@fe/services/i18n'
 import { disableSyncScrollAwhile, getHeadings, getRenderEnv, Heading, highlightLine as viewHighlightLine } from '@fe/services/view'
 import SvgIcon from './SvgIcon.vue'
+import { createTextHighlighter } from '@fe/utils'
 
 type RenderHeading = Heading & {
   hasChildren: boolean
@@ -68,6 +69,8 @@ export default defineComponent({
     const refInput = ref<HTMLInputElement>()
     const currentIdx = ref(-1)
     const expanded = ref<Record<string, boolean>>({})
+
+    const textHighlighter = createTextHighlighter(() => container.value, 'yn-side-outline')
 
     useI18n()
 
@@ -249,6 +252,8 @@ export default defineComponent({
         if (item) {
           item.scrollIntoViewIfNeeded()
         }
+
+        textHighlighter.highlight(keyword.value)
       })
     })
 
@@ -270,6 +275,7 @@ export default defineComponent({
       removeHook('VIEW_RENDERED', throttleRefresh)
       removeHook('VIEW_SCROLL', throttleRefresh)
       removeHook('DOC_SWITCHED', clear)
+      textHighlighter.dispose()
     })
 
     return { refInput, keyword, container, heads, activatedLine, currentIdx, handleClickItem, setCurrentIdx, changeCurrentIdx, chooseCurrentItem, disableCollapse, toggleExpand }

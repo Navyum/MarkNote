@@ -221,6 +221,13 @@ export default {
       await processImg(tokens)
     }
 
+    function when () {
+      const currentFile = ctx.store.state.currentFile
+      const previewFile = ctx.view.getRenderEnv()?.file
+
+      return !!(currentFile && ctx.editor.isDefault() && ctx.doc.isSameFile(currentFile, previewFile))
+    }
+
     const addImageActionId = 'plugin.image-hosting-picgo.add-image'
     const uploadAllImageActionId = 'plugin.image-hosting-picgo.upload-all-image'
 
@@ -234,6 +241,8 @@ export default {
     })
 
     ctx.statusBar.tapMenus(menus => {
+      if (!when()) return
+
       menus['status-bar-insert']?.list?.unshift({
         id: addImageActionId,
         type: 'normal',
@@ -253,6 +262,8 @@ export default {
     })
 
     ctx.view.tapContextMenus((items, e) => {
+      if (!when()) return
+
       const el = e.target as HTMLElement
 
       if (

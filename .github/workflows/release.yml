@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-13
+          - os: macos-15
             platform: 'mac'
        #   - os: windows-2019
        #     platform: 'win'
@@ -46,7 +46,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: 18.x
+          node-version: 22.x
 
       - name: Install
         run: |

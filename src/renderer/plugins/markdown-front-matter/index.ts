@@ -43,8 +43,8 @@ export default {
 
       items.push(
         { label: '/ --- Front Matter', insertText: '---\nheadingNumber: true\nwrapCode: true\nenableMacro: true\nmdOptions: { linkify: true, breaks: true }\ndefine:\n    APP_NAME: Mark Note\n---\n', block: true },
-        { 
-          label: '/ --- VuePress Front Matter', 
+        {
+          label: '/ --- VuePress Front Matter',
           insertText: '---\n' + (() => {
             const currentFile = ctx.store.state.currentFile
             if (!currentFile) {
@@ -73,8 +73,8 @@ tag:
 
   - \${2:笔记}
 ---`
-          })(), 
-          block: true 
+          })(),
+          block: true
         }
       )
     })

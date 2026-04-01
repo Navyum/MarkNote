@@ -1,10 +1,9 @@
 import dayjs from 'dayjs'
 import { insert, whenEditorReady } from '@fe/services/editor'
 import type { Plugin } from '@fe/context'
-import type { Doc } from '@fe/types'
+import type { BaseDoc } from '@fe/types'
 import { encodeMarkdownLink, escapeMd } from '@fe/utils'
 import { basename, dirname, isBelongTo, join, normalizeSep, relative } from '@fe/utils/path'
-import { getActionHandler } from '@fe/core/action'
 import store from '@fe/support/store'
 import * as api from '@fe/support/api'
 import { refreshTree } from '@fe/services/tree'
@@ -53,7 +52,9 @@ async function linkFile () {
   }
 }
 
-function addDocument (doc: Doc) {
+function addDocument (doc?: BaseDoc | null) {
+  if (!doc) return
+
   const file = store.state.currentFile
   if (file) {
     if (!isSameRepo(file, doc)) {
@@ -65,7 +66,7 @@ function addDocument (doc: Doc) {
     const filePath = isBelongTo(cwd, doc.path)
       ? relative(cwd, doc.path)
       : join('/', doc.path)
-    const fileName = doc.name.replace(/\.[^.]*$/, '')
+    const fileName = doc.name!.replace(/\.[^.]*$/, '')
     insert(`[${fileName}](${encodeMarkdownLink(filePath)})`)
   } else {
     throw new Error('No file opened.')
@@ -106,7 +107,7 @@ export default {
         keybindings: [
           monaco.KeyMod.Alt | monaco.KeyCode.KeyD
         ],
-        run: () => getActionHandler('filter.choose-document')().then(addDocument),
+        run: () => ctx.routines.chooseDocument().then(addDocument),
       })
       editor.addAction({
         id: idLinkFile,
@@ -143,7 +144,7 @@ export default {
           title: ctx.i18n.t('editor.context-menu.link-doc'),
           subTitle: ctx.keybinding.getKeysLabel(ctx.editor.lookupKeybindingKeys(idLinkDoc) || []),
           ellipsis: true,
-          onClick: () => getActionHandler('filter.choose-document')().then(addDocument),
+          onClick: () => ctx.routines.chooseDocument().then(addDocument),
         },
         {
           id: idLinkFile,

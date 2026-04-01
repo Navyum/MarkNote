@@ -729,6 +729,42 @@ const wrapper = async (ctx: any, next: any, fun: any) => {
   }
 }
 
+const ptyProcesses: NodePty.IPty[] = []
+
+export async function killPtyProcesses (pty?: NodePty.IPty) {
+  const kill = async (ptyProcess: NodePty.IPty) => {
+    const index = ptyProcesses.indexOf(ptyProcess)
+    if (index >= 0) {
+      ptyProcesses.splice(index, 1)
+    } else {
+      // already killed
+      return
+    }
+
+    const promise = Promise.race([
+      new Promise<void>((resolve) => {
+        ptyProcess.onExit(() => resolve())
+      }),
+      new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 500)
+      })
+    ])
+
+    ptyProcess.kill()
+
+    await promise
+  }
+
+  if (pty) {
+    await kill(pty)
+  } else {
+    for (const ptyProcess of [...ptyProcesses]) {
+      await kill(ptyProcess)
+    }
+    ptyProcesses.length = 0
+  }
+}
+
 const server = (port = 3000) => {
   const app = new Koa()
 
@@ -798,16 +834,29 @@ const server = (port = 3000) => {
     }
 
     if (pty) {
+      const env = JSON.parse(socket.handshake.query.env || '{}')
+
       const ptyProcess = pty.spawn(shell.getShell(), [], {
         name: 'xterm-color',
         cols: 80,
         rows: 24,
         cwd: socket.handshake.query.cwd || HOME_DIR,
-        env: process.env,
-        useConpty: false,
+        env: { ...process.env, ...env },
       })
+
+      ptyProcesses.push(ptyProcess)
+
+      const kill = () => {
+        killPtyProcesses(ptyProcess)
+      }
+
       ptyProcess.onData((data: any) => socket.emit('output', data))
-      ptyProcess.onExit(() => socket.disconnect())
+      ptyProcess.onExit(() => {
+        console.log('ptyProcess exit')
+        socket.disconnect()
+        process.off('exit', kill)
+      })
+
       socket.on('input', (data: any) => {
         if (data.startsWith(shell.CD_COMMAND_PREFIX)) {
           ptyProcess.write(shell.transformCdCommand(data.toString()))
@@ -816,7 +865,9 @@ const server = (port = 3000) => {
         }
       })
       socket.on('resize', (size: any) => ptyProcess.resize(size[0], size[1]))
-      socket.on('disconnect', () => ptyProcess.kill())
+      socket.on('disconnect', kill)
+
+      process.on('exit', kill)
     } else {
       socket.emit('output', 'node-pty is not compatible with this platform. Please install another version from GitHub https://github.com/purocean/yn/releases')
     }

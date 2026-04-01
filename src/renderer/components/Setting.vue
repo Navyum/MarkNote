@@ -5,7 +5,7 @@
     <div v-show="isReady" ref="refEditor" class="editor" @click="onClick" />
     <div class="action">
       <a href="javascript:void(0)" @click="showKeyboardShortcuts">{{ $t('setting-panel.change-keyboard-shortcuts') }}</a>
-      <button class="btn tr" @click="cancel">{{$t('cancel')}}</button>
+      <button class="btn tr" @click="close">{{$t('cancel')}}</button>
       <button class="btn primary tr" @click="ok">{{$t('ok')}}</button>
     </div>
   </div>
@@ -13,16 +13,14 @@
 
 <script lang="ts">
 import { debounce } from 'lodash-es'
-import { computed, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { JSONEditor } from '@json-editor/json-editor'
 import * as api from '@fe/support/api'
 import { useToast } from '@fe/support/ui/toast'
-import { getThemeName, setTheme } from '@fe/services/theme'
 import { useI18n } from '@fe/services/i18n'
-import { fetchSettings, getSchema, writeSettings } from '@fe/services/setting'
+import { fetchSettings, getSchema, showSettingPanel, writeSettings } from '@fe/services/setting'
 import { registerHook, removeHook, triggerHook } from '@fe/core/hook'
 import { basename } from '@fe/utils/path'
-import { getPurchased, showPremium } from '@fe/others/premium'
 import { getActionHandler } from '@fe/core/action'
 import { useModal } from '@fe/support/ui/modal'
 import store from '@fe/support/store'
@@ -110,6 +108,39 @@ export default defineComponent({
       })
     }
 
+    function initInputSuggestions (editor: any, schema: SettingSchema) {
+      Object.keys(schema.properties).forEach((key) => {
+        const field = editor.getEditor(`root.${key}`)
+        if (field && field.schema.suggestions && field.schema.suggestions.length > 0) {
+          const input = field.input as HTMLInputElement
+
+          input.addEventListener('focus', () => {
+            const div = document.createElement('ul')
+            div.className = 'suggestions-datalist'
+            div.style.left = `${input.offsetLeft}px`
+            div.style.top = `${input.offsetTop + input.offsetHeight}px`
+            div.style.width = `${input.offsetWidth - 2}px`
+            field.schema.suggestions.forEach((item: { label: string; value: string } | string) => {
+              const li = document.createElement('li')
+              const label = typeof item === 'string' ? item : item.label
+              const value = typeof item === 'string' ? item : item.value
+              li.textContent = label
+              li.title = value
+              li.onclick = () => {
+                field.setValue(value)
+              }
+              div.appendChild(li)
+            })
+            input.parentElement?.appendChild(div)
+
+            input.addEventListener('blur', () => {
+              setTimeout(() => { div.remove() }, 100)
+            }, { once: true })
+          })
+        }
+      })
+    }
+
     const initResetButtonsDebounced = debounce(initResetButtons, 100)
 
     onMounted(async () => {
@@ -141,19 +172,6 @@ export default defineComponent({
       // end: hack to use DOMPurify
       delete (window as any).DOMPurify
 
-      editor.watch('root.theme', () => {
-        const theme = editor.getEditor('root.theme').getValue()
-        if (getThemeName() !== theme) {
-          if (getPurchased()) {
-            setTheme(theme)
-          } else {
-            cancel()
-            toast.show('warning', t('premium.need-purchase', 'Theme'))
-            showPremium()
-          }
-        }
-      })
-
       editor.on('change', initResetButtonsDebounced)
 
       const reposEditor = editor.getEditor('root.repos')
@@ -180,16 +198,22 @@ export default defineComponent({
       initResetButtonsDebounced()
       isReady.value = true
 
-      triggerHook('SETTING_PANEL_AFTER_SHOW', {})
+      nextTick(() => {
+        initInputSuggestions(editor, schema)
+      })
+
+      triggerHook('SETTING_PANEL_AFTER_SHOW', { editor })
     })
 
     setLanguage()
     registerHook('I18N_CHANGE_LANGUAGE', setLanguage)
     onBeforeUnmount(() => {
+      editor?.destroy()
       removeHook('I18N_CHANGE_LANGUAGE', setLanguage)
     })
 
-    const cancel = () => {
+    const close = async () => {
+      await triggerHook('SETTING_PANEL_BEFORE_CLOSE', { editor }, { breakable: true })
       emit('close')
     }
 
@@ -215,6 +239,12 @@ export default defineComponent({
         if (errors.length) {
           console.log('json-editor', errors)
           errors.forEach((error: any) => {
+            const path = error.path
+            if (path) {
+              // highlight field
+              showSettingPanel(path.replace(/^root\./, ''))
+            }
+
             toast.show('warning', error.message)
             throw new Error(error.message)
           })
@@ -222,7 +252,7 @@ export default defineComponent({
 
         await writeSettings({ ...value })
       }
-      emit('close')
+      close()
     }
 
     const onClick = async (e: Event) => {
@@ -267,13 +297,13 @@ export default defineComponent({
     }
 
     function showKeyboardShortcuts () {
-      emit('close')
+      close()
       getActionHandler('keyboard-shortcuts.show-manager')()
     }
 
     watch(tab, updateTab)
 
-    return { isReady, tab, tabs, show, refEditor, cancel, ok, onClick, showKeyboardShortcuts }
+    return { isReady, tab, tabs, show, refEditor, close, ok, onClick, showKeyboardShortcuts }
   },
 })
 </script>
@@ -446,6 +476,30 @@ export default defineComponent({
 
   ::v-deep(a) {
     color: var(-g-color-anchor);
+  }
+
+  ::v-deep(input ~ .suggestions-datalist) {
+    position: absolute;
+    z-index: 1000;
+    background-color: var(--g-color-backdrop);
+    backdrop-filter: var(--g-backdrop-filter);
+    border: 1px solid var(--g-color-84);
+    border-radius: var(--g-border-radius);
+    box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px;
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+
+    li {
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+
+      &:hover {
+        background-color: var(--g-color-80);
+        color: var(--g-color-10);
+      }
+    }
   }
 }
 

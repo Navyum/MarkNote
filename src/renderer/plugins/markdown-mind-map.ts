@@ -369,6 +369,8 @@ const init = async (ele: HTMLElement) => {
 }
 
 const render = async (km: any, content: string) => {
+  if (!km) return
+
   let code = (content || '').trim()
 
   try {
@@ -382,7 +384,7 @@ const render = async (km: any, content: string) => {
     await km.importData('text', code)
   } catch (error) {
     await km.importData('text', t('mind-map.convert-error'))
-    km.execCommand('camera')
+    km?.execCommand('camera')
   }
 }
 
@@ -410,8 +412,8 @@ const MindMap = defineComponent({
         km = await init(container.value)
         km.disableAnimationAwhile(async () => {
           await render(km, props.content)
-          km.execCommand('hand')
-          km.execCommand('camera')
+          km?.execCommand('hand')
+          km?.execCommand('camera')
         })
         instances.set(id, km)
       } else {
@@ -577,7 +579,7 @@ export default {
       /* eslint-disable no-template-curly-in-string */
 
       items.push(
-        { label: '/ + MindMap', insertText: '+ ${1:Subject}{.mindmap}\n    + ${2:Topic}', block: true },
+        { language: 'markdown', label: '/ + MindMap', insertText: '+ ${1:Subject}{.mindmap}\n    + ${2:Topic}', block: true },
       )
     })
   }

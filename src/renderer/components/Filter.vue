@@ -1,16 +1,22 @@
 <template>
-  <XMask :show="show" @close="callback = null">
-    <QuickOpen @choose-file="chooseFile" @close="callback = null" :with-marked="withMarked"></QuickOpen>
+  <XMask :show="show" @close="close">
+    <QuickOpen
+      ref="quickOpen"
+      @choose-item="chooseItem"
+      @close="close"
+      :filter-item="filterItem" />
   </XMask>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue'
-import type { Doc } from '@fe/types'
+import { computed, defineComponent, nextTick, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import { registerAction, removeAction } from '@fe/core/action'
 import { CtrlCmd } from '@fe/core/keybinding'
 import { switchDoc } from '@fe/services/document'
 import { t } from '@fe/services/i18n'
+import type { BaseDoc, Components, Doc } from '@fe/types'
+import { isMarkdownFile } from '@share/misc'
+import store from '@fe/support/store'
 import XMask from './Mask.vue'
 import QuickOpen from './QuickOpen.vue'
 
@@ -18,31 +24,79 @@ export default defineComponent({
   name: 'x-filter',
   components: { QuickOpen, XMask },
   setup () {
-    const callback = ref<Function | null>(null)
-    const withMarked = ref(true)
+    const callback = ref<((item: Components.QuickOpen.DataItem | null) => void) | null>(null)
+    const filterItem = shallowRef<(item: Components.QuickOpen.DataItem) => boolean>()
+    const quickOpen = ref<InstanceType<typeof QuickOpen> | null>(null)
 
-    function showQuickOpen () {
-      withMarked.value = true
-      callback.value = (f: any) => {
-        switchDoc(f)
-        callback.value = null
-      }
-    }
-
-    function chooseFile (file: any) {
-      if (callback.value) {
-        callback.value(file)
-      }
-    }
-
-    function chooseDocument () {
-      return new Promise<Doc>(resolve => {
-        callback.value = (f: Doc) => {
-          resolve(f)
+    function bindAction (
+      cb: (item: Components.QuickOpen.DataItem | null) => void,
+      filter: (item: Components.QuickOpen.DataItem) => boolean
+    ) {
+      filterItem.value = filter
+      callback.value = (item: Components.QuickOpen.DataItem | null) => {
+        if (item?.type === 'tag') {
+          quickOpen.value?.switchTab('file')
+          quickOpen.value?.updateSearchText(item.payload + ' ')
+        } else {
+          cb(item)
           callback.value = null
+          filterItem.value = undefined
         }
-        withMarked.value = false
+      }
+    }
+
+    function showQuickOpen (options?: { query?: string, tab?: Components.QuickOpen.TabKey }) {
+      bindAction(
+        (f: Components.QuickOpen.DataItem | null) => {
+          if (f?.type === 'file') {
+            switchDoc(f.payload as Doc)
+          }
+        },
+        () => true
+      )
+
+      nextTick(() => {
+        if (options?.tab) {
+          quickOpen.value?.switchTab(options.tab)
+        }
+
+        if (typeof options?.query === 'string') {
+          quickOpen.value?.updateSearchText(options.query)
+        }
       })
+    }
+
+    function chooseItem (item: Components.QuickOpen.DataItem | null) {
+      if (callback.value) {
+        callback.value(item)
+      }
+    }
+
+    function chooseDocument (filter = (item: BaseDoc) => isMarkdownFile(item.path)) {
+      return new Promise<BaseDoc | null>(resolve => {
+        bindAction(
+          (item: Components.QuickOpen.DataItem | null) => {
+            resolve((item && item.type === 'file') ? item.payload : null)
+          },
+          (item: Components.QuickOpen.DataItem) => {
+          // if item is a tag, always show it
+            if (item.type === 'tag') {
+              return true
+            }
+
+            return item.type === 'file' &&
+            item.payload.repo === store.state.currentRepo?.name && // only current repo
+            filter(item.payload as BaseDoc)
+          })
+      })
+    }
+
+    function close () {
+      if (callback.value) {
+        callback.value(null)
+      }
+
+      callback.value = null
     }
 
     onMounted(() => {
@@ -65,9 +119,11 @@ export default defineComponent({
 
     return {
       show,
+      close,
       callback,
-      chooseFile,
-      withMarked,
+      chooseItem,
+      filterItem,
+      quickOpen,
     }
   },
 })

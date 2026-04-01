@@ -7,7 +7,7 @@ export const DOC_HISTORY_MAX_CONTENT_LENGTH = 102400
 
 export const ROOT_REPO_NAME_PREFIX = '__root__'
 
-export const DEFAULT_EXCLUDE_REGEX = '^node_modules/$|^\\.git/$|^\\.DS_Store$|^\\.'
+export const DEFAULT_EXCLUDE_REGEX = '^node_modules/$|^\\.git/$|^\\.DS_Store$'
 
 export const PREMIUM_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqkiGs7j0xH+RJEHvqZ33
@@ -49,4 +49,8 @@ export function getDefaultApplicationAccelerators (platform: NodeJS.Platform, la
       description: translate(lang, 'app.tray.open-in-browser')
     }
   ] as {command: 'show-main-window' | 'hide-main-window' | 'open-in-browser', accelerator: string | null, description: string}[]
+}
+
+export function isNormalRepoName (repoName: string) {
+  return !repoName.startsWith('__')
 }

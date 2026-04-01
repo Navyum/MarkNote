@@ -55,6 +55,7 @@ html {
 html[app-theme=light]:root, :root {
   @include meta.load-css('./light.scss');
   @include root-vars(light.$g-background-color, light.$g-foreground-color);
+  color-scheme: only light;
 }
 
 @include dark-theme {
@@ -62,6 +63,10 @@ html[app-theme=light]:root, :root {
   @include root-vars(dark.$g-background-color, dark.$g-foreground-color);
 
   --g-color-backdrop: #{rgba(var(--g-color-88-rgb), 0.9)};
+
+  &:root {
+    color-scheme: only dark;
+  }
 }
 
 html {
@@ -252,4 +257,30 @@ a {
 .with-border {
   border: 1px solid var(--g-color-80);
   border-radius: var(--g-border-radius);
+}
+
+@font-face {
+  font-family: 'FontWithASyntaxHighlighterLightOwl-Regular';
+  src:
+    url('@fe/assets/FontWithASyntaxHighlighterLightOwl-Regular.woff2')
+    format('woff2')
+  ;
+}
+
+@font-face {
+  font-family: 'FontWithASyntaxHighlighterNightOwl-Regular';
+  src:
+    url('@fe/assets/FontWithASyntaxHighlighterNightOwl-Regular.woff2')
+    format('woff2')
+  ;
+}
+
+.code-syntax-highlight-font {
+  font-family: 'FontWithASyntaxHighlighterLightOwl-Regular', monospace;
+}
+
+@include dark-theme {
+  .code-syntax-highlight-font {
+    font-family: 'FontWithASyntaxHighlighterNightOwl-Regular', monospace;
+  }
 }

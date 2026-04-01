@@ -42,7 +42,8 @@
 
 <script lang="ts" setup>
 import { Components } from '@fe/types'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { createTextHighlighter } from '@fe/utils'
 import SvgIcon from './SvgIcon.vue'
 import FixedFloat from './FixedFloat.vue'
 
@@ -60,6 +61,8 @@ const list = computed(() => props.list.filter(
   item => item.label.toLowerCase().includes(keyword.value.toLowerCase())
 ))
 
+const textHighlighter = createTextHighlighter(() => refList.value, 'yn-quick-filter')
+
 function close () {
   nextTick(() => {
     emit('close')
@@ -68,6 +71,10 @@ function close () {
 
 onMounted(() => {
   updateSelected()
+})
+
+onBeforeUnmount(() => {
+  textHighlighter.dispose()
 })
 
 function updateSelected (item: Item | null = null) {
@@ -122,6 +129,10 @@ watch(() => keyword.value, (val) => {
   } else {
     fixedWidth.value = undefined
   }
+
+  nextTick(() => {
+    textHighlighter.highlight(val)
+  })
 })
 
 </script>
